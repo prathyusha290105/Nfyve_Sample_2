@@ -75,31 +75,31 @@ export const GallerySection: React.FC = () => {
   });
 
   return (
-    <section ref={sectionRef} id="gallery" className="py-20 md:py-28 bg-[#242426] relative text-[#FFFAF4]">
+    <section ref={sectionRef} id="gallery" className="py-8 md:py-10 bg-[#242426] relative text-[#FFFAF4]">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 text-[#F0C46B] text-xs font-bold tracking-wider uppercase mb-2">
-            <Camera className="w-4 h-4" />
+        <div className="text-center max-w-2xl mx-auto mb-4 sm:mb-5">
+          <div className="inline-flex items-center gap-1.5 text-[#F0C46B] text-[10px] font-bold tracking-wider uppercase mb-1">
+            <Camera className="w-3.5 h-3.5" />
             <span>Sanctuary Glimpses</span>
           </div>
-          <h2 className="font-serif text-3xl md:text-5xl text-[#FFFAF4] mb-4">
+          <h2 className="font-serif text-xl sm:text-2xl md:text-3xl text-[#FFFAF4] mb-1.5">
             Experience the NFYVE Ambience
           </h2>
-          <p className="text-[#E8D9C7] text-base leading-relaxed">
+          <p className="text-[#E8D9C7] text-xs leading-relaxed">
             A visual walk through our sunlit Begumpet sanctuary—from ergonomic styling mirrors to clinical aesthetic lounges and performance suites.
           </p>
         </div>
 
         {/* Interactive Filter Tabs */}
-        <div className="flex items-center justify-center flex-wrap gap-2.5 mb-12" role="tablist">
+        <div className="flex items-center justify-center flex-wrap gap-2 mb-4 sm:mb-5" role="tablist">
           {categories.map((cat) => (
             <button
               key={cat.id}
               role="tab"
               aria-selected={activeCategory === cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              className={`px-5 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+              className={`px-3.5 py-1 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                 activeCategory === cat.id
                   ? 'bg-[#401724] text-[#FFFAF4] border border-[#D6B16A] shadow-md'
                   : 'bg-[#211A18] border border-[#D6B16A]/40 text-[#E8D9C7] hover:bg-[#401724] hover:text-[#FFFAF4]'
@@ -111,7 +111,7 @@ export const GallerySection: React.FC = () => {
         </div>
 
         {/* Editorial Asymmetric Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 auto-rows-[250px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 auto-rows-[140px] md:auto-rows-[150px]">
           {filteredItems.map((item, index) => {
             // Stagger delay calculation for entrance animation
             const delayMs = index * 100;
@@ -123,7 +123,7 @@ export const GallerySection: React.FC = () => {
                   transitionDelay: `${delayMs}ms`,
                   transitionDuration: '700ms',
                 }}
-                className={`relative rounded-3xl overflow-hidden group border border-[#D6B16A]/40 hover:border-[#F0C46B] transition-all shadow-xl cursor-pointer bg-[#211A18] ${
+                className={`relative rounded-2xl overflow-hidden group border border-[#D6B16A]/40 hover:border-[#F0C46B] transition-all shadow-xl cursor-pointer bg-[#211A18] ${
                   item.aspectClass
                 } ${
                   isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
@@ -138,15 +138,15 @@ export const GallerySection: React.FC = () => {
                 />
 
                 {/* Subtle gradient overlay & readable caption */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#211A18]/95 via-[#211A18]/40 to-transparent opacity-90 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
-                  <span className="text-xs text-[#F0C46B] tracking-wider uppercase font-semibold">
+                <div className="absolute inset-0 bg-gradient-to-t from-[#211A18]/95 via-[#211A18]/40 to-transparent opacity-90 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4 sm:p-5">
+                  <span className="text-[10px] text-[#F0C46B] tracking-wider uppercase font-semibold">
                     {item.subtitle}
                   </span>
-                  <h4 className="font-serif text-lg md:text-xl text-[#FFFAF4] font-medium leading-snug mt-1">
+                  <h4 className="font-serif text-base sm:text-lg text-[#FFFAF4] font-medium leading-snug mt-0.5">
                     {item.title}
                   </h4>
-                  <div className="mt-3 flex items-center gap-1.5 text-xs text-[#D6B16A] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <Eye className="w-3.5 h-3.5" />
+                  <div className="mt-2 flex items-center gap-1.5 text-[11px] text-[#D6B16A] opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <Eye className="w-3 h-3" />
                     <span>Click to expand</span>
                   </div>
                 </div>

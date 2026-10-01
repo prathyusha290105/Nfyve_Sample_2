@@ -123,35 +123,35 @@ export const StatsCounter: React.FC = () => {
   return (
     <section
       ref={sectionRef}
-      className="py-14 bg-[#E8D9C7] border-y border-[#D6B16A]/40 relative"
+      className="py-6 md:py-8 bg-[#E8D9C7] border-y border-[#D6B16A]/40 relative"
       aria-label="Verified transformation statistics"
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="text-center max-w-3xl mx-auto mb-10">
-          <p className="font-serif italic text-xl md:text-2xl text-[#401724] mb-2 font-medium leading-relaxed">
+        <div className="text-center max-w-3xl mx-auto mb-4 sm:mb-5">
+          <p className="font-serif italic text-sm sm:text-base md:text-lg text-[#401724] mb-1 font-medium leading-relaxed">
             "NFYVE – The Change redefines Wellness by blending Beauty, Aesthetics, Fitness, &amp; Nutri Food into one seamless journey of transformation &amp; self-care."
           </p>
-          <span className="text-xs text-[#401724]/75 uppercase tracking-widest font-bold">
+          <span className="text-[10px] text-[#401724]/75 uppercase tracking-widest font-bold">
             — Begumpet Flagship Sanctuary
           </span>
         </div>
 
         {/* 4 Verified Metrics Bento Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
           {STATS.map((stat, index) => (
             <div
               key={stat.id}
-              className="bg-[#F7F0E7] rounded-2xl p-6 text-center border border-[#D6B16A]/40 warm-card-shadow transition-transform hover:-translate-y-1 duration-300"
+              className="bg-[#F7F0E7] rounded-xl p-3 sm:p-4 text-center border border-[#D6B16A]/40 warm-card-shadow transition-transform hover:-translate-y-1 duration-300"
             >
-              <div className="w-10 h-10 rounded-full bg-[#401724] mx-auto flex items-center justify-center mb-3 shadow-sm">
+              <div className="w-7 h-7 rounded-full bg-[#401724] mx-auto flex items-center justify-center mb-1.5 shadow-sm">
                 {stat.icon}
               </div>
-              <div className="font-serif text-3xl md:text-4xl font-bold text-[#401724] tabular-nums tracking-tight">
+              <div className="font-serif text-xl sm:text-2xl md:text-3xl font-bold text-[#401724] tabular-nums tracking-tight">
                 {stat.prefix}
                 {counts[index].toLocaleString()}
                 {stat.suffix}
               </div>
-              <div className="text-[11px] text-[#401724]/80 mt-1 uppercase tracking-wider font-semibold">
+              <div className="text-[9px] sm:text-[10px] text-[#401724]/80 mt-1 uppercase tracking-wider font-semibold">
                 {stat.label}
               </div>
             </div>

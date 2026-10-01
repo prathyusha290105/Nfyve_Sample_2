@@ -119,74 +119,74 @@ export const BookingSection: React.FC<BookingSectionProps> = ({ preselectedServi
   };
 
   return (
-    <section id="contact" className="py-20 md:py-28 bg-gradient-to-b from-[#211A18] to-[#401724] relative text-[#FFFAF4]">
+    <section id="contact" className="py-8 md:py-10 lg:py-12 bg-gradient-to-b from-[#211A18] to-[#401724] relative text-[#FFFAF4]">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           {/* Left: Verified Contact Information */}
-          <div className="lg:col-span-5 flex flex-col gap-6">
-            <div className="inline-flex items-center gap-2 text-[#F0C46B] text-xs font-bold tracking-wider uppercase">
-              <Calendar className="w-4 h-4 text-[#D6B16A]" />
+          <div className="lg:col-span-5 flex flex-col gap-4">
+            <div className="inline-flex items-center gap-1.5 text-[#F0C46B] text-[10px] font-bold tracking-wider uppercase">
+              <Calendar className="w-3.5 h-3.5 text-[#D6B16A]" />
               <span>Begumpet Concierge</span>
             </div>
 
-            <h2 className="font-serif text-3xl md:text-5xl text-[#FFFAF4] leading-tight">
+            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl text-[#FFFAF4] leading-tight">
               Begin Your Change Today.
             </h2>
 
-            <p className="text-sm text-[#E8D9C7] leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#E8D9C7] leading-relaxed">
               Schedule your comprehensive transformation assessment. Our consultants will evaluate your skin, body composition, hair profile, and fitness milestones to draft a bespoke protocol.
             </p>
 
-            <div className="space-y-4 pt-2">
+            <div className="space-y-2.5 pt-1">
               <a
-                className="flex items-center gap-4 p-4 rounded-2xl bg-[#211A18]/70 border border-[#D6B16A]/30 hover:border-[#D6B16A] transition-all group"
+                className="flex items-center gap-3 p-3 rounded-xl bg-[#211A18]/70 border border-[#D6B16A]/30 hover:border-[#D6B16A] transition-all group"
                 href={`tel:${NFYVE_CONTACT.phone}`}
               >
-                <div className="w-12 h-12 rounded-xl bg-[#401724] border border-[#D6B16A]/50 text-[#F0C46B] flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Phone className="w-5 h-5" />
+                <div className="w-9 h-9 rounded-lg bg-[#401724] border border-[#D6B16A]/50 text-[#F0C46B] flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <Phone className="w-4 h-4" />
                 </div>
                 <div>
-                  <span className="text-xs text-[#E8D9C7]/80 block font-medium">Direct Sanctuary Phone</span>
-                  <span className="font-serif text-lg text-[#FFFAF4] font-bold tabular-nums">
+                  <span className="text-[10px] text-[#E8D9C7]/80 block font-medium">Direct Sanctuary Phone</span>
+                  <span className="font-serif text-sm sm:text-base text-[#FFFAF4] font-bold tabular-nums">
                     {NFYVE_CONTACT.phoneDisplay}
                   </span>
                 </div>
               </a>
 
               <a
-                className="flex items-center gap-4 p-4 rounded-2xl bg-[#211A18]/70 border border-[#D6B16A]/30 hover:border-[#D6B16A] transition-all group"
+                className="flex items-center gap-3 p-3 rounded-xl bg-[#211A18]/70 border border-[#D6B16A]/30 hover:border-[#D6B16A] transition-all group"
                 href={`mailto:${NFYVE_CONTACT.email}`}
               >
-                <div className="w-12 h-12 rounded-xl bg-[#401724] border border-[#D6B16A]/50 text-[#F0C46B] flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Mail className="w-5 h-5" />
+                <div className="w-9 h-9 rounded-lg bg-[#401724] border border-[#D6B16A]/50 text-[#F0C46B] flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <Mail className="w-4 h-4" />
                 </div>
                 <div>
-                  <span className="text-xs text-[#E8D9C7]/80 block font-medium">Email Inquiries</span>
-                  <span className="font-serif text-lg text-[#FFFAF4] font-bold">
+                  <span className="text-[10px] text-[#E8D9C7]/80 block font-medium">Email Inquiries</span>
+                  <span className="font-serif text-sm sm:text-base text-[#FFFAF4] font-bold">
                     {NFYVE_CONTACT.email}
                   </span>
                 </div>
               </a>
 
-              <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#211A18]/70 border border-[#D6B16A]/30">
-                <div className="w-12 h-12 rounded-xl bg-[#401724] border border-[#D6B16A]/50 text-[#F0C46B] flex items-center justify-center shrink-0">
-                  <MapPin className="w-5 h-5" />
+              <div className="flex items-center gap-3 p-3 rounded-xl bg-[#211A18]/70 border border-[#D6B16A]/30">
+                <div className="w-9 h-9 rounded-lg bg-[#401724] border border-[#D6B16A]/50 text-[#F0C46B] flex items-center justify-center shrink-0">
+                  <MapPin className="w-4 h-4" />
                 </div>
                 <div>
-                  <span className="text-xs text-[#E8D9C7]/80 block font-medium">Flagship Location</span>
-                  <span className="text-xs sm:text-sm text-[#FFFAF4] font-medium leading-snug block">
+                  <span className="text-[10px] text-[#E8D9C7]/80 block font-medium">Flagship Location</span>
+                  <span className="text-xs text-[#FFFAF4] font-medium leading-snug block">
                     {NFYVE_CONTACT.address}
                   </span>
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 p-4 rounded-2xl bg-[#211A18]/70 border border-[#D6B16A]/30">
-                <div className="w-12 h-12 rounded-xl bg-[#401724] border border-[#D6B16A]/50 text-[#F0C46B] flex items-center justify-center shrink-0">
-                  <Clock className="w-5 h-5" />
+              <div className="flex items-center gap-3 p-3 rounded-xl bg-[#211A18]/70 border border-[#D6B16A]/30">
+                <div className="w-9 h-9 rounded-lg bg-[#401724] border border-[#D6B16A]/50 text-[#F0C46B] flex items-center justify-center shrink-0">
+                  <Clock className="w-4 h-4" />
                 </div>
                 <div>
-                  <span className="text-xs text-[#E8D9C7]/80 block font-medium">Operating Hours</span>
-                  <span className="text-xs sm:text-sm text-[#FFFAF4] font-medium">
+                  <span className="text-[10px] text-[#E8D9C7]/80 block font-medium">Operating Hours</span>
+                  <span className="text-xs text-[#FFFAF4] font-medium">
                     {NFYVE_CONTACT.hours}
                   </span>
                 </div>
@@ -196,7 +196,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({ preselectedServi
 
           {/* Right: Booking Form or Confirmation Card */}
           <div className="lg:col-span-7">
-            <div className="bg-[#242426] rounded-3xl p-6 sm:p-8 md:p-10 border border-[#D6B16A]/50 shadow-2xl relative">
+            <div className="bg-[#242426] rounded-2xl p-5 sm:p-6 md:p-7 border border-[#D6B16A]/50 shadow-2xl relative">
               {submittedBooking ? (
                 /* Successful Submission Confirmation Card */
                 <div className="space-y-6 animate-in fade-in zoom-in-95 duration-300">
@@ -277,16 +277,16 @@ export const BookingSection: React.FC<BookingSectionProps> = ({ preselectedServi
               ) : (
                 /* Interactive Booking Form */
                 <>
-                  <h3 className="font-serif text-2xl text-[#FFFAF4] mb-1 font-semibold">
+                  <h3 className="font-serif text-xl sm:text-2xl text-[#FFFAF4] mb-0.5 font-semibold">
                     Book a Sanctuary Consultation
                   </h3>
-                  <p className="text-xs text-[#E8D9C7] mb-6">
+                  <p className="text-xs text-[#E8D9C7] mb-3.5">
                     Select your initial service interest and preferred appointment slot.
                   </p>
 
-                  <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+                  <form onSubmit={handleSubmit} className="space-y-3" noValidate>
                     {/* Name & Phone */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
                         <label htmlFor="fullName" className="block text-xs font-semibold text-[#FFFAF4] mb-1">
                           Your Full Name <span className="text-[#F0C46B]">*</span>
@@ -300,14 +300,14 @@ export const BookingSection: React.FC<BookingSectionProps> = ({ preselectedServi
                             if (errors.fullName) setErrors({ ...errors, fullName: undefined });
                           }}
                           placeholder="e.g. Ananya Rao"
-                          className={`w-full bg-[#FFFAF4] text-[#211A18] placeholder-[#211A18]/50 border rounded-xl px-4 py-3 text-xs outline-none transition-all ${
+                          className={`w-full bg-[#FFFAF4] text-[#211A18] placeholder-[#211A18]/50 border rounded-lg px-3.5 py-2 sm:py-2.5 text-xs outline-none transition-all ${
                             errors.fullName
                               ? 'border-rose-400 ring-2 ring-rose-400/30'
                               : 'border-[#D6B16A]/40 focus:border-[#F0C46B] focus:ring-2 focus:ring-[#D6B16A]/30'
                           }`}
                         />
                         {errors.fullName && (
-                          <p className="text-[11px] text-rose-300 mt-1 flex items-center gap-1">
+                          <p className="text-[11px] text-rose-300 mt-0.5 flex items-center gap-1">
                             <AlertCircle className="w-3 h-3" />
                             <span>{errors.fullName}</span>
                           </p>
@@ -327,14 +327,14 @@ export const BookingSection: React.FC<BookingSectionProps> = ({ preselectedServi
                             if (errors.phone) setErrors({ ...errors, phone: undefined });
                           }}
                           placeholder="+91 98765 43210"
-                          className={`w-full bg-[#FFFAF4] text-[#211A18] placeholder-[#211A18]/50 border rounded-xl px-4 py-3 text-xs outline-none transition-all ${
+                          className={`w-full bg-[#FFFAF4] text-[#211A18] placeholder-[#211A18]/50 border rounded-lg px-3.5 py-2 sm:py-2.5 text-xs outline-none transition-all ${
                             errors.phone
                               ? 'border-rose-400 ring-2 ring-rose-400/30'
                               : 'border-[#D6B16A]/40 focus:border-[#F0C46B] focus:ring-2 focus:ring-[#D6B16A]/30'
                           }`}
                         />
                         {errors.phone && (
-                          <p className="text-[11px] text-rose-300 mt-1 flex items-center gap-1">
+                          <p className="text-[11px] text-rose-300 mt-0.5 flex items-center gap-1">
                             <AlertCircle className="w-3 h-3" />
                             <span>{errors.phone}</span>
                           </p>
@@ -343,7 +343,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({ preselectedServi
                     </div>
 
                     {/* Email & Primary Pillar */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
                         <label htmlFor="email" className="block text-xs font-semibold text-[#FFFAF4] mb-1">
                           Email Address <span className="text-xs text-[#E8D9C7]/60">(Optional)</span>
@@ -357,14 +357,14 @@ export const BookingSection: React.FC<BookingSectionProps> = ({ preselectedServi
                             if (errors.email) setErrors({ ...errors, email: undefined });
                           }}
                           placeholder="ananya@example.com"
-                          className={`w-full bg-[#FFFAF4] text-[#211A18] placeholder-[#211A18]/50 border rounded-xl px-4 py-3 text-xs outline-none transition-all ${
+                          className={`w-full bg-[#FFFAF4] text-[#211A18] placeholder-[#211A18]/50 border rounded-lg px-3.5 py-2 sm:py-2.5 text-xs outline-none transition-all ${
                             errors.email
                               ? 'border-rose-400 ring-2 ring-rose-400/30'
                               : 'border-[#D6B16A]/40 focus:border-[#F0C46B] focus:ring-2 focus:ring-[#D6B16A]/30'
                           }`}
                         />
                         {errors.email && (
-                          <p className="text-[11px] text-rose-300 mt-1 flex items-center gap-1">
+                          <p className="text-[11px] text-rose-300 mt-0.5 flex items-center gap-1">
                             <AlertCircle className="w-3 h-3" />
                             <span>{errors.email}</span>
                           </p>
@@ -379,7 +379,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({ preselectedServi
                           id="service"
                           value={formData.service}
                           onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                          className="w-full bg-[#FFFAF4] text-[#211A18] border border-[#D6B16A]/40 rounded-xl px-4 py-3 text-xs focus:border-[#F0C46B] focus:ring-2 focus:ring-[#D6B16A]/30 outline-none transition-all cursor-pointer"
+                          className="w-full bg-[#FFFAF4] text-[#211A18] border border-[#D6B16A]/40 rounded-lg px-3.5 py-2 sm:py-2.5 text-xs focus:border-[#F0C46B] focus:ring-2 focus:ring-[#D6B16A]/30 outline-none transition-all cursor-pointer"
                         >
                           <option value="Salon & Hair Care (Keratin, Nanoplastia, Balayage)">
                             Salon &amp; Hair Care (Keratin, Nanoplastia, Balayage)
@@ -404,7 +404,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({ preselectedServi
                     </div>
 
                     {/* Date & Time Window */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
                         <label htmlFor="date" className="block text-xs font-semibold text-[#FFFAF4] mb-1">
                           Preferred Date
@@ -414,7 +414,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({ preselectedServi
                           type="date"
                           value={formData.date}
                           onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                          className="w-full bg-[#FFFAF4] text-[#211A18] border border-[#D6B16A]/40 rounded-xl px-4 py-3 text-xs focus:border-[#F0C46B] focus:ring-2 focus:ring-[#D6B16A]/30 outline-none transition-all"
+                          className="w-full bg-[#FFFAF4] text-[#211A18] border border-[#D6B16A]/40 rounded-lg px-3.5 py-2 sm:py-2.5 text-xs focus:border-[#F0C46B] focus:ring-2 focus:ring-[#D6B16A]/30 outline-none transition-all"
                         />
                       </div>
 
@@ -426,7 +426,7 @@ export const BookingSection: React.FC<BookingSectionProps> = ({ preselectedServi
                           id="timeSlot"
                           value={formData.timeSlot}
                           onChange={(e) => setFormData({ ...formData, timeSlot: e.target.value })}
-                          className="w-full bg-[#FFFAF4] text-[#211A18] border border-[#D6B16A]/40 rounded-xl px-4 py-3 text-xs focus:border-[#F0C46B] focus:ring-2 focus:ring-[#D6B16A]/30 outline-none transition-all cursor-pointer"
+                          className="w-full bg-[#FFFAF4] text-[#211A18] border border-[#D6B16A]/40 rounded-lg px-3.5 py-2 sm:py-2.5 text-xs focus:border-[#F0C46B] focus:ring-2 focus:ring-[#D6B16A]/30 outline-none transition-all cursor-pointer"
                         >
                           <option value="Morning (08:00 AM – 12:00 PM)">Morning (08:00 AM – 12:00 PM)</option>
                           <option value="Afternoon (12:00 PM – 04:00 PM)">Afternoon (12:00 PM – 04:00 PM)</option>
@@ -442,11 +442,11 @@ export const BookingSection: React.FC<BookingSectionProps> = ({ preselectedServi
                       </label>
                       <textarea
                         id="notes"
-                        rows={3}
+                        rows={2}
                         value={formData.notes}
                         onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                         placeholder="Tell us what you would like to achieve (e.g. hair frizz control, 5kg inch-loss, acne glow)..."
-                        className="w-full bg-[#FFFAF4] text-[#211A18] placeholder-[#211A18]/50 border border-[#D6B16A]/40 rounded-xl px-4 py-3 text-xs focus:border-[#F0C46B] focus:ring-2 focus:ring-[#D6B16A]/30 outline-none transition-all"
+                        className="w-full bg-[#FFFAF4] text-[#211A18] placeholder-[#211A18]/50 border border-[#D6B16A]/40 rounded-lg px-3.5 py-2 text-xs focus:border-[#F0C46B] focus:ring-2 focus:ring-[#D6B16A]/30 outline-none transition-all"
                       />
                     </div>
 
@@ -454,19 +454,19 @@ export const BookingSection: React.FC<BookingSectionProps> = ({ preselectedServi
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full py-4 rounded-full bg-[#401724] text-[#FFFAF4] text-xs font-semibold hover:bg-[#571f31] transition-all duration-300 shadow-lg bloom-shadow flex items-center justify-center gap-2 border border-[#D6B16A] active:scale-98 cursor-pointer disabled:opacity-70"
+                      className="w-full py-3 rounded-full bg-[#401724] text-[#FFFAF4] text-xs font-semibold hover:bg-[#571f31] transition-all duration-300 shadow-lg bloom-shadow flex items-center justify-center gap-2 border border-[#D6B16A] active:scale-98 cursor-pointer disabled:opacity-70"
                     >
                       {isSubmitting ? (
                         <span>Processing Request...</span>
                       ) : (
                         <>
                           <span>Confirm Appointment Request</span>
-                          <ArrowRight className="w-4 h-4 text-[#F0C46B]" />
+                          <ArrowRight className="w-3.5 h-3.5 text-[#F0C46B]" />
                         </>
                       )}
                     </button>
 
-                    <div className="text-center text-[11px] text-[#E8D9C7]/70 mt-2">
+                    <div className="text-center text-[10px] text-[#E8D9C7]/70 mt-1.5">
                       🔒 Doctor-patient and client confidentiality strictly maintained. No spam guaranteed.
                     </div>
                   </form>

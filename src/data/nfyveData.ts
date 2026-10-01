@@ -146,7 +146,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     subtitle: 'Flagship Architectural Ambiance',
     category: 'ambience',
     image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA5YlUvCut56qjoqoP5zZ0P2nTAltquje6hLWNzvso4snohAH8I1rDNazW7r1mlFnz3qF4wxXPXZCFX2EyzNPELp9dlP8jSGIlAhU4Zu1fgCxeLEmhoe9qCoE9aQaGrW4WcBYltfjRP-FDLyAnUwB5FRh2XxRyc2frc2UPfAydY0M0p_kDOZ50E-_taa4qQ-4tXhkZdDF8-Tf69wW9diWDm0bFAT5wx4cCQPSXSlgFxjfoXdrElQ2H-akEJb0Ufbjursrg',
-    aspectClass: 'md:col-span-2 md:row-span-2 min-h-[440px]',
+    aspectClass: 'md:col-span-2 md:row-span-2 min-h-[350px]',
   },
   {
     id: 'gallery-2',
@@ -154,7 +154,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     subtitle: 'Sanctuary Spa Ambiance',
     category: 'salon',
     image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB-z2yqPnP_ewQKwtbj8_G4N9ONFDbciFrucWHKH_vaPVHbolKDqxP4t1ybzeF5pa0rSSnG83chCo_Q7XtgywSimdn0nRg3AUpF05QMGbaxbEMU31K8st0cscA629lERbGzQLMBvyqjeBKDvbAMQj-drhydcMXE1g-NBpVuFX--7IuBKfO3q5vfloQKOXsgXdGYNd1QPyRtmcGt_51jlLPesSfmnf-ucXDnmuqpWuB2Rd3HT1shdyi_Ep2QhQpJm0F34wU',
-    aspectClass: 'md:col-span-2 min-h-[260px]',
+    aspectClass: 'md:col-span-2 min-h-[170px]',
   },
   {
     id: 'gallery-3',
@@ -162,7 +162,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     subtitle: 'Begumpet Flagship Entrance',
     category: 'ambience',
     image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAjm9GXCBQMPO7rX3dPebG49De6mY2-GSMXVC3IWutgCsuPXU0tYG_Ts3afyPzLHud9geoMtDIpnplRNCbMeK6wFgiClrP_InuN6q-Ba6oYomj7bnvpOdpJ5Yfs-1N23RGDCM8rWy3KspoN50z4S2RPScacdEIFfjLnqoMgV34Wk5CA6oGcn2Fd151Kjtl4uXfJKTtdCFQXAxZaUkHdwD-6MRR-k-C6MXmzURwI04Aviqs1Ehvu68FfvGTLVm9ECFyTGBM',
-    aspectClass: 'md:col-span-1 min-h-[260px]',
+    aspectClass: 'md:col-span-1 min-h-[170px]',
   },
   {
     id: 'gallery-4',
@@ -170,7 +170,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     subtitle: 'Performance Gym Suite',
     category: 'gym',
     image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC1GDggeyCU8tHAdDUhAn81iDDpQKK9bF4uxp9PfMclUTgujfPMhp2jK9vee6yQHLblARKzBQcRs5i4baiscodYTdhQRI1b9SLONaIeHiT6FfD2ZpxZBZx_5uxXw0jOOMrtEj7X0s0kpIBAJG2URYf2izcdD8cz7fBuZ5KsD8YUT6EuLqOyV67OZxPuy-psQPbNJBoWkdLOM7ugwykrvBfjLXJn7XqlL5D73Qj_HfFy0sLX7lNFLCFOr1Qu8UeuDBflh5Y',
-    aspectClass: 'md:col-span-1 min-h-[260px]',
+    aspectClass: 'md:col-span-1 min-h-[170px]',
   },
   {
     id: 'gallery-5',
@@ -178,7 +178,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     subtitle: 'Private Aesthetic & Salon Wing',
     category: 'salon',
     image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBi_wvenJvPRFFOIGvPpC9KnLPhswM3D9hI97gkQKSQCYhUp_ez4W1JaBiRa7LttImulmdKJlI23LHd2idq8xhP0uRWXs317veIZD7MT4fJ88YKkXZhIgh8z0kEar8V_DwoPFZZXa79Pyxy9kTDSQq9IccYMUwGzKL6oRafes8mwptEAUfV0i6S5DT_NXldRLCOL7jeXOsw_DMSmkSSSIFjiRGTt6DS6omUgoAIA6Z-iYD1sJwAfKBF0GL_z4wTO_tA-E4',
-    aspectClass: 'md:col-span-2 min-h-[260px]',
+    aspectClass: 'md:col-span-2 min-h-[170px]',
   },
   {
     id: 'gallery-6',
@@ -186,7 +186,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     subtitle: 'Architectural Corridor',
     category: 'ambience',
     image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDD4Y06dF0U0krL-BSCSUMSF7pJxk-1sRX0pDWZ9hO6kmP5oo-ir1vpMEPGU5hjjn-t0H7sg59JiJTFytIQbrx34bX4NLJsa-Yl-QyJ8H0JVioD8cfdcr8Za3VWWs3AfyJwrnVPsAmE_-9sK_S1OQ_M2El1LyUWvFBOB6MzqqQGZ1thkDIYZ3HoOUlleGBxpO1lEzEgfE1XWqD3j1WD1ZaAOXolPcc-Yti7kyO9j2gUAu1frFgu3q0FUpOGsGleJWNCkFg',
-    aspectClass: 'md:col-span-1 min-h-[260px]',
+    aspectClass: 'md:col-span-1 min-h-[170px]',
   },
   {
     id: 'gallery-7',
@@ -194,7 +194,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     subtitle: 'Clinical Dermatology Wing',
     category: 'skin',
     image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDLrIWEMeA_J1Ml20j9u_3KUhUaXouuUdVCfnZynoOk8Uc2KYWl2eQtcgJn06rDTbIuYubL8qa_idkw7UO9yIBj-ZfPVXe6tembfLoAPpii2ZfaDrfEPw-f0SWfeVDqxQmAxzOqWWpE58x8Jp--fk9p-_AtFcn71eV4D-6LWCd5WUx4ZsBhaZBEAXXpNbX5lYlCUImBez7DOV09eCaU8LtKdjrK22OiYHG3Nzsjgrd2TLwC1t06peJk5KIOeCT_5aep5BY',
-    aspectClass: 'md:col-span-1 min-h-[260px]',
+    aspectClass: 'md:col-span-1 min-h-[170px]',
   },
 ];
 
