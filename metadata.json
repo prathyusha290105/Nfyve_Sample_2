@@ -1,0 +1,6 @@
+{
+  "name": "NFYVE – The Change | Luxury Wellness Sanctuary",
+  "description": "Hyderabad's premier luxury transformation sanctuary in Begumpet, unifying wellness, fitness, clinical aesthetics, salon artistry, and bespoke nutrition.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
