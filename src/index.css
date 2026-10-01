@@ -34,6 +34,42 @@
   }
 }
 
+/* Continuous Orbital Rotation and Upright Counter-Rotation */
+@keyframes nfyve-orbit-clockwise {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes nfyve-orbit-counter {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+.orbit-track {
+  animation: nfyve-orbit-clockwise 50s linear infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.orbit-card-counter {
+  animation: nfyve-orbit-counter 50s linear infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.orbit-system-wrapper:hover .orbit-track,
+.orbit-system-wrapper:hover .orbit-card-counter {
+  animation-play-state: paused;
+}
+
 /* Marquee track animations */
 @keyframes marquee-left {
   0% { transform: translateX(0%); }
@@ -74,6 +110,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .orbit-track,
+  .orbit-card-counter,
   .marquee-track-left,
   .marquee-track-right,
   .luminous-halo {

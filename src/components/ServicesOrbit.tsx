@@ -40,19 +40,14 @@ export const ServicesOrbit: React.FC<ServicesOrbitProps> = ({ onSelectServiceFor
     }
   };
 
-  // Node positions along a 720px circle (radius = 330px around center 360, 360)
-  // Angles: 0° (-90° from top), 72°, 144°, 216°, 288°
-  // 0: top (X: 360, Y: 30)
-  // 1: top-right (X: 674, Y: 258)
-  // 2: bottom-right (X: 554, Y: 627)
-  // 3: bottom-left (X: 166, Y: 627)
-  // 4: top-left (X: 46, Y: 258)
+  // Node positions along a circular path (radius = 300px around center 380, 380 in a 760x760 container)
+  // Angles spaced evenly by 72°: 0° (top), 72°, 144°, 216°, 288°
   const nodePositions = [
-    { top: '30px', left: '360px' },
-    { top: '258px', left: '674px' },
-    { top: '627px', left: '554px' },
-    { top: '627px', left: '166px' },
-    { top: '258px', left: '46px' },
+    { top: '80px', left: '380px' },
+    { top: '287px', left: '665px' },
+    { top: '623px', left: '556px' },
+    { top: '623px', left: '204px' },
+    { top: '287px', left: '95px' },
   ];
 
   return (
@@ -79,13 +74,13 @@ export const ServicesOrbit: React.FC<ServicesOrbitProps> = ({ onSelectServiceFor
         </div>
 
         {/* Interactive Circular Orbit System (Desktop & Tablet) */}
-        <div className="hidden md:flex justify-center items-center relative min-h-[760px] my-4">
+        <div className="hidden md:flex justify-center items-center relative min-h-[800px] my-4 orbit-system-wrapper">
           {/* Concentric Orbital Guide Rings */}
-          <div className="absolute w-[720px] h-[720px] rounded-full border border-dashed border-[#D6B16A]/50 pointer-events-none" />
-          <div className="absolute w-[560px] h-[560px] rounded-full border border-[#D6B16A]/40 pointer-events-none" />
-          <div className="absolute w-[400px] h-[400px] rounded-full border border-[#D6B16A]/30 pointer-events-none" />
+          <div className="absolute w-[760px] h-[760px] rounded-full border border-dashed border-[#D6B16A]/40 pointer-events-none" />
+          <div className="absolute w-[600px] h-[600px] rounded-full border border-[#D6B16A]/50 pointer-events-none" />
+          <div className="absolute w-[460px] h-[460px] rounded-full border border-[#D6B16A]/30 pointer-events-none" />
 
-          {/* Center Luminous Focal Heart */}
+          {/* Center Stationary Luminous Focal Heart */}
           <div className="relative z-30 w-80 h-80 rounded-full bg-gradient-to-b from-[#401724] to-[#211A18] border-4 border-[#F0C46B] luminous-halo p-4 flex flex-col items-center justify-center text-center overflow-hidden transition-all duration-500 shadow-2xl group">
             {/* Background luxury portrait image with overlay */}
             <img
@@ -120,8 +115,8 @@ export const ServicesOrbit: React.FC<ServicesOrbitProps> = ({ onSelectServiceFor
             </div>
           </div>
 
-          {/* Stationary Upright Orbit Cards Wrapper */}
-          <div className="absolute w-[720px] h-[720px] rounded-full pointer-events-auto">
+          {/* Continuously Orbiting Track */}
+          <div className="absolute w-[760px] h-[760px] rounded-full pointer-events-auto orbit-track">
             {SERVICE_PILLARS.map((pillar, idx) => {
               const pos = nodePositions[idx];
               const isSelected = selectedIndex === idx;
@@ -130,40 +125,43 @@ export const ServicesOrbit: React.FC<ServicesOrbitProps> = ({ onSelectServiceFor
                 <div
                   key={pillar.id}
                   style={{ top: pos.top, left: pos.left }}
-                  className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer z-40 group"
+                  className="absolute -translate-x-1/2 -translate-y-1/2 z-40 cursor-pointer"
                   onClick={() => setSelectedIndex(idx)}
                 >
-                  <div
-                    className={`w-[205px] bg-[#F7F0E7] backdrop-blur-md p-3.5 rounded-2xl shadow-xl border-2 transition-all duration-300 hover:scale-105 flex flex-col gap-2.5 text-left ${
-                      isSelected
-                        ? 'border-[#F0C46B] ring-2 ring-[#D6B16A]/50 scale-105 shadow-2xl'
-                        : 'border-[#D6B16A]/50 hover:border-[#D6B16A]'
-                    }`}
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-[#D6B16A]/60 shadow-inner">
-                        <img
-                          alt={pillar.title}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                          src={pillar.image}
-                          referrerPolicy="no-referrer"
-                        />
+                  {/* Upright Counter-Rotating Card Element (Cancels orbital tilt, keeping card at 0 degrees) */}
+                  <div className="orbit-card-counter">
+                    <div
+                      className={`w-[205px] bg-[#F7F0E7] backdrop-blur-md p-3.5 rounded-2xl shadow-xl border-2 transition-all duration-300 hover:scale-105 flex flex-col gap-2.5 text-left ${
+                        isSelected
+                          ? 'border-[#F0C46B] ring-2 ring-[#D6B16A]/50 scale-105 shadow-2xl'
+                          : 'border-[#D6B16A]/50 hover:border-[#D6B16A]'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-[#D6B16A]/60 shadow-inner">
+                          <img
+                            alt={pillar.title}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            src={pillar.image}
+                            referrerPolicy="no-referrer"
+                          />
+                        </div>
+                        <div className="flex flex-col min-w-0">
+                          <span className="text-[10px] px-2 py-0.5 bg-[#401724] text-[#F0C46B] font-bold rounded-full w-fit mb-0.5 uppercase tracking-wider">
+                            {pillar.tag}
+                          </span>
+                          <h4 className="text-xs font-bold text-[#401724] leading-snug line-clamp-2">
+                            {pillar.title}
+                          </h4>
+                        </div>
                       </div>
-                      <div className="flex flex-col min-w-0">
-                        <span className="text-[10px] px-2 py-0.5 bg-[#401724] text-[#F0C46B] font-bold rounded-full w-fit mb-0.5 uppercase tracking-wider">
-                          {pillar.tag}
-                        </span>
-                        <h4 className="text-xs font-bold text-[#401724] leading-snug line-clamp-2">
-                          {pillar.title}
-                        </h4>
+                      <p className="text-[11px] text-[#211A18]/70 leading-tight line-clamp-2">
+                        {pillar.shortDesc}
+                      </p>
+                      <div className="flex items-center justify-between pt-1 border-t border-[#D6B16A]/30 text-[10px] font-semibold text-[#401724]">
+                        <span>Spotlight Wing</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-[#D6B16A]" />
                       </div>
-                    </div>
-                    <p className="text-[11px] text-[#211A18]/70 leading-tight line-clamp-2">
-                      {pillar.shortDesc}
-                    </p>
-                    <div className="flex items-center justify-between pt-1 border-t border-[#D6B16A]/30 text-[10px] font-semibold text-[#401724]">
-                      <span>Spotlight Wing</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-[#D6B16A]" />
                     </div>
                   </div>
                 </div>
@@ -227,7 +225,7 @@ export const ServicesOrbit: React.FC<ServicesOrbitProps> = ({ onSelectServiceFor
         <div className="text-center mt-6">
           <span className="text-xs text-[#401724]/80 inline-flex items-center gap-1.5 font-medium">
             <Sparkles className="w-3.5 h-3.5 text-[#D6B16A]" />
-            Tap any planetary card or focal heart to spotlight and explore full wing protocols
+            Hover to pause orbital rotation · Tap any planetary card or focal heart to spotlight and explore full wing protocols
           </span>
         </div>
       </div>
