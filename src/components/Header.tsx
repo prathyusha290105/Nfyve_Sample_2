@@ -1,13 +1,26 @@
 import React, { useState } from 'react';
-import { Phone, Calendar, Menu, X } from 'lucide-react';
+import { Phone, Calendar, Menu, X, User, Shield } from 'lucide-react';
 import { NFYVE_CONTACT } from '../data/nfyveData';
+import { useAuth } from '../context/AuthContext';
 
 interface HeaderProps {
   onBookClick: () => void;
+  onNavigate?: (path: string) => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onBookClick }) => {
+export const Header: React.FC<HeaderProps> = ({ onBookClick, onNavigate }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user, isAuthenticated, isStaff, isAdmin } = useAuth();
+
+  const handleNavigate = (path: string) => {
+    setMobileMenuOpen(false);
+    if (onNavigate) {
+      onNavigate(path);
+    } else {
+      window.history.pushState({}, '', path);
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    }
+  };
 
   const navLinks = [
     { label: 'Home', href: '#hero' },
@@ -71,11 +84,11 @@ export const Header: React.FC<HeaderProps> = ({ onBookClick }) => {
         </nav>
 
         {/* Zone 3: Trailing Action Cluster */}
-        <div className="flex items-center gap-3 sm:gap-4">
+        <div className="flex items-center gap-2.5 sm:gap-3 xl:gap-4">
           {/* Phone Badge */}
           <a
             href={`tel:${NFYVE_CONTACT.phone}`}
-            className="hidden sm:inline-flex items-center gap-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-full bg-[#401724]/80 text-[#FFFAF4] border border-[#D6B16A]/40 hover:border-[#F0C46B] hover:bg-[#401724] transition-all duration-200 text-xs sm:text-[13px] font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F0C46B]"
+            className="hidden sm:inline-flex items-center gap-2 px-3 py-2 sm:px-3.5 sm:py-2 rounded-full bg-[#401724]/80 text-[#FFFAF4] border border-[#D6B16A]/40 hover:border-[#F0C46B] hover:bg-[#401724] transition-all duration-200 text-xs sm:text-[13px] font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F0C46B]"
             aria-label="Call NFYVE Begumpet Sanctuary"
           >
             <Phone className="w-3.5 h-3.5 text-[#F0C46B]" />
@@ -85,11 +98,38 @@ export const Header: React.FC<HeaderProps> = ({ onBookClick }) => {
           {/* Primary Booking Button */}
           <button
             onClick={onBookClick}
-            className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-[#401724] text-[#FFFAF4] text-xs sm:text-[13px] font-semibold hover:bg-[#521e2f] shadow-md hover:shadow-lg transition-all duration-300 ease-out active:scale-95 flex items-center gap-2 border border-[#D6B16A]/70 bloom-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F0C46B] cursor-pointer"
+            className="px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-full bg-[#401724] text-[#FFFAF4] text-xs sm:text-[13px] font-semibold hover:bg-[#521e2f] shadow-md hover:shadow-lg transition-all duration-300 ease-out active:scale-95 flex items-center gap-1.5 sm:gap-2 border border-[#D6B16A]/70 bloom-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F0C46B] cursor-pointer"
           >
             <Calendar className="w-3.5 h-3.5 text-[#F0C46B]" />
             <span className="whitespace-nowrap">Book Appointment</span>
           </button>
+
+          {/* Clearly Visible Login / Account Option */}
+          {isAuthenticated && user ? (
+            <button
+              onClick={() => handleNavigate(isStaff || isAdmin ? '/admin' : '/account')}
+              className="inline-flex items-center gap-1.5 px-3 py-2 sm:px-3.5 sm:py-2 rounded-full bg-[#2A171D] hover:bg-[#401724] text-[#FFFAF4] text-xs sm:text-[13px] font-semibold border border-[#D6B16A]/60 hover:border-[#F0C46B] transition-all duration-200 active:scale-95 cursor-pointer shadow-sm"
+              title={isStaff || isAdmin ? 'Open Admin Command Center' : 'Open My Account'}
+            >
+              {isStaff || isAdmin ? (
+                <Shield className="w-3.5 h-3.5 text-[#F0C46B]" />
+              ) : (
+                <User className="w-3.5 h-3.5 text-[#F0C46B]" />
+              )}
+              <span className="whitespace-nowrap max-w-[85px] sm:max-w-[110px] truncate">
+                {isStaff || isAdmin ? 'Admin' : user.fullName.split(' ')[0]}
+              </span>
+            </button>
+          ) : (
+            <button
+              onClick={() => handleNavigate('/login')}
+              className="inline-flex items-center gap-1.5 px-3 py-2 sm:px-3.5 sm:py-2 rounded-full bg-[#2A171D] hover:bg-[#401724] text-[#FFFAF4] text-xs sm:text-[13px] font-semibold border border-[#D6B16A]/60 hover:border-[#F0C46B] transition-all duration-200 active:scale-95 cursor-pointer shadow-sm group"
+              aria-label="Sign in to NFYVE"
+            >
+              <User className="w-3.5 h-3.5 text-[#F0C46B] group-hover:scale-110 transition-transform" />
+              <span className="whitespace-nowrap">Login</span>
+            </button>
+          )}
 
           {/* Mobile Menu Button */}
           <button
@@ -118,6 +158,33 @@ export const Header: React.FC<HeaderProps> = ({ onBookClick }) => {
               </a>
             ))}
             <div className="pt-4 flex flex-col gap-3">
+              {/* Mobile Login / Account Button */}
+              {isAuthenticated && user ? (
+                <button
+                  onClick={() => handleNavigate(isStaff || isAdmin ? '/admin' : '/account')}
+                  className="w-full py-3 rounded-full bg-[#2A171D] text-[#FFFAF4] text-xs font-semibold border border-[#D6B16A]/60 flex items-center justify-center gap-2"
+                >
+                  {isStaff || isAdmin ? (
+                    <Shield className="w-4 h-4 text-[#F0C46B]" />
+                  ) : (
+                    <User className="w-4 h-4 text-[#F0C46B]" />
+                  )}
+                  <span>
+                    {isStaff || isAdmin
+                      ? 'Admin Command Center'
+                      : `My Account (${user.fullName})`}
+                  </span>
+                </button>
+              ) : (
+                <button
+                  onClick={() => handleNavigate('/login')}
+                  className="w-full py-3 rounded-full bg-[#2A171D] text-[#FFFAF4] text-xs font-semibold border border-[#D6B16A]/60 flex items-center justify-center gap-2"
+                >
+                  <User className="w-4 h-4 text-[#F0C46B]" />
+                  <span>Customer & Staff Login</span>
+                </button>
+              )}
+
               <a
                 href={`tel:${NFYVE_CONTACT.phone}`}
                 className="flex items-center justify-center gap-2 py-3 rounded-full bg-[#401724]/70 text-[#FFFAF4] border border-[#D6B16A]/40 text-xs font-semibold"
