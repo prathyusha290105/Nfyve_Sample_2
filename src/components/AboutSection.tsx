@@ -3,13 +3,16 @@ import { Sparkles, CheckCircle2 } from 'lucide-react';
 
 export const AboutSection: React.FC = () => {
   return (
-    <section id="about" className="py-8 md:py-10 bg-[#F7F0E7] relative">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+    <section
+      id="about"
+      className="min-h-[calc(100vh-60px)] md:min-h-[calc(100svh-60px)] py-12 md:py-16 lg:py-20 bg-[#F7F0E7] relative flex flex-col justify-center"
+    >
+      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full my-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
           {/* Left Image Collage with real sanctuary photos */}
           <div className="lg:col-span-6 relative">
-            <div className="grid grid-cols-12 gap-2.5 sm:gap-3">
-              <div className="col-span-8 rounded-2xl overflow-hidden shadow-lg border-2 border-[#D6B16A]/40 aspect-[4/5] max-h-[300px] lg:max-h-[320px] gold-glow">
+            <div className="grid grid-cols-12 gap-3 sm:gap-4">
+              <div className="col-span-8 rounded-3xl overflow-hidden shadow-2xl border-2 border-[#D6B16A]/50 aspect-[4/5] max-h-[440px] lg:max-h-[480px] gold-glow">
                 <img
                   alt="NFYVE Begumpet Golden Corridor"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
@@ -17,8 +20,8 @@ export const AboutSection: React.FC = () => {
                   referrerPolicy="no-referrer"
                 />
               </div>
-              <div className="col-span-4 flex flex-col gap-2.5 sm:gap-3">
-                <div className="rounded-xl overflow-hidden shadow-md border-2 border-[#D6B16A]/40 aspect-square max-h-[145px]">
+              <div className="col-span-4 flex flex-col gap-3 sm:gap-4">
+                <div className="rounded-2xl overflow-hidden shadow-lg border-2 border-[#D6B16A]/40 aspect-square max-h-[210px] lg:max-h-[230px]">
                   <img
                     alt="NFYVE Monogram Welcome Sign"
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
@@ -26,7 +29,7 @@ export const AboutSection: React.FC = () => {
                     referrerPolicy="no-referrer"
                   />
                 </div>
-                <div className="rounded-xl overflow-hidden shadow-md border-2 border-[#D6B16A]/40 aspect-[3/4] max-h-[155px]">
+                <div className="rounded-2xl overflow-hidden shadow-lg border-2 border-[#D6B16A]/40 aspect-[3/4] max-h-[210px] lg:max-h-[235px]">
                   <img
                     alt="NFYVE Luxury Styling Mirrors"
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
@@ -38,67 +41,67 @@ export const AboutSection: React.FC = () => {
             </div>
 
             {/* Deep Burgundy Inset Quote Card */}
-            <div className="mt-3 sm:-mt-5 relative z-20 sm:ml-4 sm:mr-6 bg-[#401724] p-3 sm:p-3.5 rounded-xl border border-[#D6B16A]/50 shadow-xl">
-              <p className="font-serif italic text-xs sm:text-sm text-[#FFFAF4] leading-relaxed">
-                <span className="text-[#F0C46B] text-sm font-bold">“</span>
+            <div className="mt-4 sm:-mt-8 relative z-20 sm:ml-4 sm:mr-8 bg-[#401724] p-4 sm:p-5 rounded-2xl border border-[#D6B16A]/50 shadow-xl">
+              <p className="font-serif italic text-sm sm:text-base text-[#FFFAF4] leading-relaxed">
+                <span className="text-[#F0C46B] text-base font-bold">“</span>
                 We designed NFYVE so clients never have to compromise between medical rigour and spa tranquility.
-                <span className="text-[#F0C46B] text-sm font-bold">”</span>
+                <span className="text-[#F0C46B] text-base font-bold">”</span>
               </p>
-              <div className="text-[9px] text-[#F0C46B] font-semibold mt-1 tracking-wide uppercase">
+              <div className="text-[11px] text-[#F0C46B] font-semibold mt-2 tracking-wider uppercase">
                 Begumpet Transformation Advisory
               </div>
             </div>
           </div>
 
           {/* Right Content Block */}
-          <div className="lg:col-span-6 flex flex-col gap-3 sm:gap-3.5 pt-1 lg:pt-0">
-            <div className="inline-flex items-center gap-1.5 text-[#401724] text-[10px] font-bold tracking-wider uppercase">
-              <Sparkles className="w-3.5 h-3.5 text-[#D6B16A]" />
+          <div className="lg:col-span-6 flex flex-col gap-4 sm:gap-5 pt-2 lg:pt-0">
+            <div className="inline-flex items-center gap-2 text-[#401724] text-xs font-bold tracking-wider uppercase">
+              <Sparkles className="w-4 h-4 text-[#D6B16A]" />
               <span>A Complete Transformation Sanctuary</span>
             </div>
 
-            <h2 className="font-serif text-xl sm:text-2xl md:text-3xl lg:text-[32px] text-[#401724] font-medium leading-tight">
+            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl xl:text-[42px] text-[#401724] font-medium leading-[1.2]">
               No More Rushing Between Clinic, Salon, and Gym.
             </h2>
 
-            <p className="text-xs sm:text-sm text-[#211A18]/85 leading-relaxed">
+            <p className="text-sm sm:text-base text-[#211A18]/85 leading-relaxed">
               At <strong>NFYVE – The Change</strong>, we bring together Weight Loss, Fitness, Aesthetics, Nutri Food, &amp; Salon into one integrated architectural haven. Our expert-led approach ensures you don’t just look better—but feel stronger, healthier, and more confident every single day.
             </p>
 
-            <p className="text-xs text-[#211A18]/70 leading-relaxed">
+            <p className="text-xs sm:text-sm text-[#211A18]/75 leading-relaxed">
               Located on the 4th Floor of Kura Towers right beside Begumpet Old Airport, NFYVE offers custom dermatologist protocols, state-of-the-art non-surgical body contouring, luxury salon artistry, performance cardio machines, and freshly formulated macro-balanced foods from our Nutri Bar.
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
-              <div className="flex items-start gap-2">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#D6B16A] shrink-0 mt-0.5" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <div className="flex items-start gap-3">
+                <CheckCircle2 className="w-5 h-5 text-[#D6B16A] shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-xs font-bold text-[#401724]">Integrated Care</h4>
-                  <p className="text-[10px] text-[#211A18]/70">Physicians, trainers &amp; stylists aligned on your goals.</p>
+                  <h4 className="text-sm sm:text-base font-bold text-[#401724]">Integrated Care</h4>
+                  <p className="text-xs sm:text-sm text-[#211A18]/70 mt-0.5">Physicians, trainers &amp; stylists aligned on your goals.</p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-2">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#D6B16A] shrink-0 mt-0.5" />
+              <div className="flex items-start gap-3">
+                <CheckCircle2 className="w-5 h-5 text-[#D6B16A] shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-xs font-bold text-[#401724]">Hospitality First</h4>
-                  <p className="text-[10px] text-[#211A18]/70">Serene, acoustic-buffered private suites.</p>
+                  <h4 className="text-sm sm:text-base font-bold text-[#401724]">Hospitality First</h4>
+                  <p className="text-xs sm:text-sm text-[#211A18]/70 mt-0.5">Serene, acoustic-buffered private suites.</p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-2">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#D6B16A] shrink-0 mt-0.5" />
+              <div className="flex items-start gap-3">
+                <CheckCircle2 className="w-5 h-5 text-[#D6B16A] shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-xs font-bold text-[#401724]">Clinically Proven</h4>
-                  <p className="text-[10px] text-[#211A18]/70">FDA-cleared lasers, HIFU, and Cryolipolysis.</p>
+                  <h4 className="text-sm sm:text-base font-bold text-[#401724]">Clinically Proven</h4>
+                  <p className="text-xs sm:text-sm text-[#211A18]/70 mt-0.5">FDA-cleared lasers, HIFU, and Cryolipolysis.</p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-2">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#D6B16A] shrink-0 mt-0.5" />
+              <div className="flex items-start gap-3">
+                <CheckCircle2 className="w-5 h-5 text-[#D6B16A] shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-xs font-bold text-[#401724]">Custom Nutrition</h4>
-                  <p className="text-[10px] text-[#211A18]/70">Wholesome meal plans crafted for your metabolism.</p>
+                  <h4 className="text-sm sm:text-base font-bold text-[#401724]">Custom Nutrition</h4>
+                  <p className="text-xs sm:text-sm text-[#211A18]/70 mt-0.5">Wholesome meal plans crafted for your metabolism.</p>
                 </div>
               </div>
             </div>
