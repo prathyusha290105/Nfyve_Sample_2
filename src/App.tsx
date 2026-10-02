@@ -15,6 +15,7 @@ import { ReviewsSection } from './components/ReviewsSection';
 import { FaqSection } from './components/FaqSection';
 import { BookingSection } from './components/BookingSection';
 import { Footer } from './components/Footer';
+import { SupportChatWidget } from './components/chat/SupportChatWidget';
 
 export default function App() {
   const [selectedServiceForBooking, setSelectedServiceForBooking] = useState<string>(
@@ -76,6 +77,9 @@ export default function App() {
 
       {/* 11. Footer */}
       <Footer />
+
+      {/* 12. Floating Customer Support Chat Widget */}
+      <SupportChatWidget onBookClick={scrollToBooking} />
     </div>
   );
 }
