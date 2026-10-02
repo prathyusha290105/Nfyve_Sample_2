@@ -12,7 +12,12 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { SERVICE_PILLARS, ServicePillar } from '../data/nfyveData';
-import { luxuryEase } from '../utils/animations';
+import {
+  luxuryEase,
+  servicesHeaderReveal,
+  servicesCenterFocal,
+  servicesCardStagger,
+} from '../utils/animations';
 
 interface ServicesOrbitProps {
   onSelectServiceForBooking: (serviceName: string) => void;
@@ -44,7 +49,6 @@ export const ServicesOrbit: React.FC<ServicesOrbitProps> = ({ onSelectServiceFor
   };
 
   // Node positions along a circular path (radius = 175px around center 230, 230 in a 460x460 container)
-  // Angles spaced evenly by 72°: 0° (top), 72°, 144°, 216°, 288°
   const nodePositions = [
     { top: '55px', left: '230px' },
     { top: '176px', left: '396px' },
@@ -62,12 +66,12 @@ export const ServicesOrbit: React.FC<ServicesOrbitProps> = ({ onSelectServiceFor
       />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-        {/* Section Header with Viewport Entrance Animation */}
+        {/* Section Header with Refined Radial Reveal */}
         <motion.div
-          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          variants={shouldReduceMotion ? {} : servicesHeaderReveal}
+          initial={shouldReduceMotion ? { opacity: 1 } : "hidden"}
+          whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: shouldReduceMotion ? 0 : 0.6, ease: luxuryEase }}
           className="flex flex-col items-center text-center max-w-2xl mx-auto mb-4 sm:mb-5"
         >
           <div className="inline-flex items-center gap-1.5 text-[#401724] text-[10px] font-bold tracking-wider uppercase mb-1">
@@ -83,30 +87,25 @@ export const ServicesOrbit: React.FC<ServicesOrbitProps> = ({ onSelectServiceFor
         </motion.div>
 
         {/* Interactive Circular Orbit System (Desktop & Tablet) */}
-        <motion.div
-          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.96 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: shouldReduceMotion ? 0 : 0.7, ease: luxuryEase }}
-          className="hidden md:flex justify-center items-center relative min-h-[460px] h-[460px] my-1 orbit-system-wrapper"
-        >
+        <div className="hidden md:flex justify-center items-center relative min-h-[460px] h-[460px] my-1 orbit-system-wrapper">
           {/* Concentric Orbital Guide Rings */}
           <div className="absolute w-[460px] h-[460px] rounded-full border border-dashed border-[#D6B16A]/40 pointer-events-none" />
           <div className="absolute w-[360px] h-[360px] rounded-full border border-[#D6B16A]/50 pointer-events-none" />
           <div className="absolute w-[260px] h-[260px] rounded-full border border-[#D6B16A]/30 pointer-events-none" />
 
-          {/* Center Stationary Luminous Focal Heart */}
+          {/* Center Stationary Luminous Focal Heart with Radiant Pulse */}
           <motion.div
-            initial={shouldReduceMotion ? { scale: 1, opacity: 1 } : { scale: 0.9, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
+            variants={shouldReduceMotion ? {} : servicesCenterFocal}
+            initial={shouldReduceMotion ? { opacity: 1 } : "hidden"}
+            whileInView="visible"
             viewport={{ once: true }}
-            transition={{ duration: shouldReduceMotion ? 0 : 0.65, delay: shouldReduceMotion ? 0 : 0.2, ease: luxuryEase }}
-            className="relative z-30 w-[180px] h-[180px] rounded-full bg-gradient-to-b from-[#401724] to-[#211A18] border-3 border-[#F0C46B] luminous-halo p-2.5 flex flex-col items-center justify-center text-center overflow-hidden transition-all duration-500 shadow-2xl group"
+            className="relative z-30 w-[180px] h-[180px] rounded-full bg-gradient-to-b from-[#401724] to-[#211A18] border-3 border-[#F0C46B] luminous-halo p-2.5 flex flex-col items-center justify-center text-center overflow-hidden transition-all duration-500 shadow-2xl group cursor-pointer"
+            onClick={() => setDetailPillar(currentPillar)}
           >
             {/* Background luxury portrait image with overlay */}
             <img
               alt={currentPillar.title}
-              className="absolute inset-0 w-full h-full object-cover rounded-full mix-blend-luminosity opacity-35 group-hover:opacity-50 transition-opacity duration-700 group-hover:scale-105"
+              className="absolute inset-0 w-full h-full object-cover rounded-full mix-blend-luminosity opacity-35 group-hover:opacity-55 transition-all duration-700 group-hover:scale-105"
               src={currentPillar.image}
               referrerPolicy="no-referrer"
             />
@@ -114,7 +113,7 @@ export const ServicesOrbit: React.FC<ServicesOrbitProps> = ({ onSelectServiceFor
 
             {/* Inner content frame */}
             <div className="relative z-10 flex flex-col items-center justify-center px-2 py-0.5">
-              <div className="w-7 h-7 rounded-full bg-[#FFFAF4]/10 backdrop-blur-md flex items-center justify-center text-[#F0C46B] ring-1 ring-[#D6B16A]/60 shadow-inner mb-1">
+              <div className="w-7 h-7 rounded-full bg-[#FFFAF4]/10 backdrop-blur-md flex items-center justify-center text-[#F0C46B] ring-1 ring-[#D6B16A]/60 shadow-inner mb-1 group-hover:scale-110 transition-transform">
                 {getIcon(currentPillar.icon, 'w-4 h-4 text-[#F0C46B]')}
               </div>
               <span className="text-[9px] text-[#F0C46B] uppercase tracking-widest font-bold drop-shadow">
@@ -127,7 +126,10 @@ export const ServicesOrbit: React.FC<ServicesOrbitProps> = ({ onSelectServiceFor
                 {currentPillar.fullDesc}
               </p>
               <button
-                onClick={() => setDetailPillar(currentPillar)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setDetailPillar(currentPillar);
+                }}
                 className="px-3 py-1 rounded-full bg-[#D6B16A] text-[#211A18] text-[10px] font-bold hover:bg-[#F0C46B] shadow-md hover:shadow-xl transition-all duration-300 flex items-center gap-1 border border-[#FFFAF4]/40 active:scale-95 group/btn cursor-pointer"
               >
                 <span>Explore Wing</span>
@@ -136,7 +138,7 @@ export const ServicesOrbit: React.FC<ServicesOrbitProps> = ({ onSelectServiceFor
             </div>
           </motion.div>
 
-          {/* Continuously Orbiting Track */}
+          {/* Continuously Orbiting Track with Sequentially Settled Planetary Cards */}
           <div className="absolute w-[460px] h-[460px] rounded-full pointer-events-auto orbit-track">
             {SERVICE_PILLARS.map((pillar, idx) => {
               const pos = nodePositions[idx];
@@ -149,20 +151,34 @@ export const ServicesOrbit: React.FC<ServicesOrbitProps> = ({ onSelectServiceFor
                   className="absolute -translate-x-1/2 -translate-y-1/2 z-40 cursor-pointer"
                   onClick={() => setSelectedIndex(idx)}
                 >
-                  {/* Upright Counter-Rotating Card Element (Cancels orbital tilt, keeping card at 0 degrees) */}
+                  {/* Upright Counter-Rotating Card Element */}
                   <div className="orbit-card-counter">
-                    <div
-                      className={`w-[145px] bg-[#F7F0E7] backdrop-blur-md p-2 rounded-xl shadow-md border-2 transition-all duration-300 hover:scale-105 flex flex-col gap-1 text-left ${
+                    <motion.div
+                      variants={shouldReduceMotion ? {} : servicesCardStagger(idx)}
+                      initial={shouldReduceMotion ? { opacity: 1 } : "hidden"}
+                      whileInView="visible"
+                      viewport={{ once: true }}
+                      whileHover={
+                        shouldReduceMotion
+                          ? {}
+                          : {
+                              y: -4,
+                              scale: 1.05,
+                              boxShadow: '0 16px 24px -4px rgba(64, 23, 36, 0.28)',
+                              transition: { duration: 0.2 },
+                            }
+                      }
+                      className={`w-[145px] bg-[#F7F0E7] backdrop-blur-md p-2 rounded-xl border-2 transition-all flex flex-col gap-1 text-left ${
                         isSelected
-                          ? 'border-[#F0C46B] ring-2 ring-[#D6B16A]/50 scale-105 shadow-xl'
-                          : 'border-[#D6B16A]/50 hover:border-[#D6B16A]'
+                          ? 'border-[#F0C46B] ring-2 ring-[#D6B16A]/50 shadow-xl'
+                          : 'border-[#D6B16A]/50 hover:border-[#D6B16A] shadow-md'
                       }`}
                     >
                       <div className="flex items-center gap-2">
                         <div className="w-9 h-9 rounded-lg overflow-hidden shrink-0 border border-[#D6B16A]/60 shadow-inner">
                           <img
                             alt={pillar.title}
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
                             src={pillar.image}
                             referrerPolicy="no-referrer"
                           />
@@ -183,20 +199,24 @@ export const ServicesOrbit: React.FC<ServicesOrbitProps> = ({ onSelectServiceFor
                         <span>Spotlight Wing</span>
                         <ArrowRight className="w-2.5 h-2.5 text-[#D6B16A]" />
                       </div>
-                    </div>
+                    </motion.div>
                   </div>
                 </div>
               );
             })}
           </div>
-        </motion.div>
+        </div>
 
-        {/* Mobile Touch-Friendly Alternative View with Staggered Entrance */}
+        {/* Mobile Alternative View with Staggered Wing Cards */}
         <div className="md:hidden flex flex-col gap-5">
           <div className="flex items-center gap-2 overflow-x-auto pb-2 custom-scroll-hide">
             {SERVICE_PILLARS.map((pillar, idx) => (
-              <button
+              <motion.button
                 key={pillar.id}
+                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: -12 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.06 }}
                 onClick={() => setSelectedIndex(idx)}
                 className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all ${
                   selectedIndex === idx
@@ -205,7 +225,7 @@ export const ServicesOrbit: React.FC<ServicesOrbitProps> = ({ onSelectServiceFor
                 }`}
               >
                 {idx + 1}. {pillar.tag}
-              </button>
+              </motion.button>
             ))}
           </div>
 
@@ -257,7 +277,7 @@ export const ServicesOrbit: React.FC<ServicesOrbitProps> = ({ onSelectServiceFor
         </div>
       </div>
 
-      {/* Full Pillar Detail Modal with Smooth Motion Transition */}
+      {/* Full Pillar Detail Modal */}
       <AnimatePresence>
         {detailPillar && (
           <div
@@ -274,7 +294,7 @@ export const ServicesOrbit: React.FC<ServicesOrbitProps> = ({ onSelectServiceFor
             >
               <button
                 onClick={() => setDetailPillar(null)}
-                className="absolute top-4 right-4 p-1.5 rounded-full bg-[#401724] text-[#E8D9C7] hover:text-[#FFFAF4] hover:bg-[#571f31] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F0C46B]"
+                className="absolute top-4 right-4 p-1.5 rounded-full bg-[#401724] text-[#E8D9C7] hover:text-[#FFFAF4] hover:bg-[#571f31] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F0C46B] cursor-pointer"
                 aria-label="Close modal"
               >
                 <X className="w-4 h-4" />
@@ -318,7 +338,7 @@ export const ServicesOrbit: React.FC<ServicesOrbitProps> = ({ onSelectServiceFor
                     setDetailPillar(null);
                     onSelectServiceForBooking(serviceName);
                   }}
-                  className="w-full sm:w-auto px-5 py-2 rounded-full bg-[#401724] text-[#FFFAF4] text-xs font-semibold hover:bg-[#571f31] transition-all flex items-center justify-center gap-1.5 border border-[#D6B16A] bloom-shadow"
+                  className="w-full sm:w-auto px-5 py-2 rounded-full bg-[#401724] text-[#FFFAF4] text-xs font-semibold hover:bg-[#571f31] transition-all flex items-center justify-center gap-1.5 border border-[#D6B16A] bloom-shadow cursor-pointer"
                 >
                   <Calendar className="w-3.5 h-3.5 text-[#F0C46B]" />
                   <span>Book This Service</span>

@@ -1,45 +1,35 @@
 import React from 'react';
 import { Sparkles, CheckCircle2 } from 'lucide-react';
 import { motion, useReducedMotion } from 'motion/react';
-import { luxuryEase } from '../utils/animations';
+import {
+  storytellingEase,
+  aboutImageMaskReveal,
+  aboutSupportingImageReveal,
+  aboutStoryParagraph,
+  aboutFeatureSequential,
+} from '../utils/animations';
 
 export const AboutSection: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
 
-  const containerVariants = {
-    hidden: { opacity: shouldReduceMotion ? 1 : 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: shouldReduceMotion ? 0 : 0.08,
-      },
+  const storyFeatures = [
+    {
+      title: 'Integrated Care',
+      desc: 'Physicians, trainers & stylists aligned on your goals.',
     },
-  };
-
-  const itemFadeUp = {
-    hidden: { opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: shouldReduceMotion ? 0 : 0.6,
-        ease: luxuryEase,
-      },
+    {
+      title: 'Hospitality First',
+      desc: 'Serene, acoustic-buffered private suites.',
     },
-  };
-
-  const featureItemVariants = {
-    hidden: { opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 16, scale: shouldReduceMotion ? 1 : 0.98 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: shouldReduceMotion ? 0 : 0.55,
-        ease: luxuryEase,
-      },
+    {
+      title: 'Clinically Proven',
+      desc: 'FDA-cleared lasers, HIFU, and Cryolipolysis.',
     },
-  };
+    {
+      title: 'Custom Nutrition',
+      desc: 'Wholesome meal plans crafted for your metabolism.',
+    },
+  ];
 
   return (
     <section
@@ -48,15 +38,15 @@ export const AboutSection: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 w-full my-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
-          {/* Left Image Collage with Staggered Entrance Animations */}
+          {/* Left: Storytelling Visual Collage with Clip-Path Mask Uncurling */}
           <div className="lg:col-span-6 relative">
             <div className="grid grid-cols-12 gap-3 sm:gap-4">
-              {/* Main Image */}
+              {/* Main Image with Clip-Path Reveal */}
               <motion.div
-                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 24, scale: 0.96 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                variants={shouldReduceMotion ? {} : aboutImageMaskReveal}
+                initial={shouldReduceMotion ? { opacity: 1 } : "hidden"}
+                whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: shouldReduceMotion ? 0 : 0.7, ease: luxuryEase }}
                 className="col-span-8 rounded-3xl overflow-hidden shadow-2xl border-2 border-[#D6B16A]/50 aspect-[4/5] max-h-[460px] lg:max-h-[500px] xl:max-h-[520px] gold-glow group"
               >
                 <img
@@ -67,14 +57,14 @@ export const AboutSection: React.FC = () => {
                 />
               </motion.div>
 
-              {/* Supporting Images Column */}
+              {/* Supporting Images Column with Masked Uncurling */}
               <div className="col-span-4 flex flex-col gap-3 sm:gap-4">
                 {/* Supporting Image 1 */}
                 <motion.div
-                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20, scale: 0.96 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  variants={shouldReduceMotion ? {} : aboutSupportingImageReveal(0.18)}
+                  initial={shouldReduceMotion ? { opacity: 1 } : "hidden"}
+                  whileInView="visible"
                   viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: shouldReduceMotion ? 0 : 0.65, delay: shouldReduceMotion ? 0 : 0.15, ease: luxuryEase }}
                   className="rounded-2xl overflow-hidden shadow-lg border-2 border-[#D6B16A]/40 aspect-square max-h-[220px] lg:max-h-[245px] group"
                 >
                   <img
@@ -87,10 +77,10 @@ export const AboutSection: React.FC = () => {
 
                 {/* Supporting Image 2 */}
                 <motion.div
-                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20, scale: 0.96 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  variants={shouldReduceMotion ? {} : aboutSupportingImageReveal(0.32)}
+                  initial={shouldReduceMotion ? { opacity: 1 } : "hidden"}
+                  whileInView="visible"
                   viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: shouldReduceMotion ? 0 : 0.65, delay: shouldReduceMotion ? 0 : 0.25, ease: luxuryEase }}
                   className="rounded-2xl overflow-hidden shadow-lg border-2 border-[#D6B16A]/40 aspect-[3/4] max-h-[220px] lg:max-h-[250px] group"
                 >
                   <img
@@ -103,12 +93,12 @@ export const AboutSection: React.FC = () => {
               </div>
             </div>
 
-            {/* Deep Burgundy Inset Quote Card with Reveal Transition */}
+            {/* Inset Quote Card with Storyteller Border Reveal */}
             <motion.div
-              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: shouldReduceMotion ? 0 : 0.6, delay: shouldReduceMotion ? 0 : 0.35, ease: luxuryEase }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.7, delay: shouldReduceMotion ? 0 : 0.4, ease: storytellingEase }}
               className="mt-4 sm:-mt-8 relative z-20 sm:ml-4 sm:mr-8 bg-[#401724] p-4 sm:p-5 rounded-2xl border border-[#D6B16A]/50 shadow-xl"
             >
               <p className="font-serif italic text-sm sm:text-base text-[#FFFAF4] leading-relaxed">
@@ -122,17 +112,14 @@ export const AboutSection: React.FC = () => {
             </motion.div>
           </div>
 
-          {/* Right Content Block with Viewport-Triggered Stagger */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            className="lg:col-span-6 flex flex-col gap-4 sm:gap-5 pt-2 lg:pt-0"
-          >
-            {/* Eyebrow */}
+          {/* Right: Progressive Storytelling Narrative */}
+          <div className="lg:col-span-6 flex flex-col gap-4 sm:gap-5 pt-2 lg:pt-0">
+            {/* Story Bookmark Label */}
             <motion.div
-              variants={itemFadeUp}
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.6, ease: storytellingEase }}
               className="inline-flex items-center gap-2 text-[#401724] text-xs font-bold tracking-wider uppercase"
             >
               <Sparkles className="w-4 h-4 text-[#D6B16A]" />
@@ -141,60 +128,59 @@ export const AboutSection: React.FC = () => {
 
             {/* Heading */}
             <motion.h2
-              variants={itemFadeUp}
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.7, delay: shouldReduceMotion ? 0 : 0.1, ease: storytellingEase }}
               className="font-serif text-2xl sm:text-3xl lg:text-4xl xl:text-[42px] text-[#401724] font-medium leading-[1.2]"
             >
               No More Rushing Between Clinic, Salon, and Gym.
             </motion.h2>
 
             {/* Paragraph 1 */}
-            <motion.p variants={itemFadeUp} className="text-sm sm:text-base text-[#211A18]/85 leading-relaxed">
+            <motion.p
+              variants={shouldReduceMotion ? {} : aboutStoryParagraph}
+              initial={shouldReduceMotion ? { opacity: 1 } : "hidden"}
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ delay: shouldReduceMotion ? 0 : 0.2 }}
+              className="text-sm sm:text-base text-[#211A18]/85 leading-relaxed"
+            >
               At <strong>NFYVE – The Change</strong>, we bring together Weight Loss, Fitness, Aesthetics, Nutri Food, &amp; Salon into one integrated architectural haven. Our expert-led approach ensures you don’t just look better—but feel stronger, healthier, and more confident every single day.
             </motion.p>
 
             {/* Paragraph 2 */}
-            <motion.p variants={itemFadeUp} className="text-xs sm:text-sm text-[#211A18]/75 leading-relaxed">
+            <motion.p
+              variants={shouldReduceMotion ? {} : aboutStoryParagraph}
+              initial={shouldReduceMotion ? { opacity: 1 } : "hidden"}
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ delay: shouldReduceMotion ? 0 : 0.3 }}
+              className="text-xs sm:text-sm text-[#211A18]/75 leading-relaxed"
+            >
               Located on the 4th Floor of Kura Towers right beside Begumpet Old Airport, NFYVE offers custom dermatologist protocols, state-of-the-art non-surgical body contouring, luxury salon artistry, performance cardio machines, and freshly formulated macro-balanced foods from our Nutri Bar.
             </motion.p>
 
-            {/* Feature Points Grid - Staggered entrance */}
-            <motion.div
-              variants={containerVariants}
-              className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2"
-            >
-              <motion.div variants={featureItemVariants} className="flex items-start gap-3">
-                <CheckCircle2 className="w-5 h-5 text-[#D6B16A] shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="text-sm sm:text-base font-bold text-[#401724]">Integrated Care</h4>
-                  <p className="text-xs sm:text-sm text-[#211A18]/70 mt-0.5">Physicians, trainers &amp; stylists aligned on your goals.</p>
-                </div>
-              </motion.div>
-
-              <motion.div variants={featureItemVariants} className="flex items-start gap-3">
-                <CheckCircle2 className="w-5 h-5 text-[#D6B16A] shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="text-sm sm:text-base font-bold text-[#401724]">Hospitality First</h4>
-                  <p className="text-xs sm:text-sm text-[#211A18]/70 mt-0.5">Serene, acoustic-buffered private suites.</p>
-                </div>
-              </motion.div>
-
-              <motion.div variants={featureItemVariants} className="flex items-start gap-3">
-                <CheckCircle2 className="w-5 h-5 text-[#D6B16A] shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="text-sm sm:text-base font-bold text-[#401724]">Clinically Proven</h4>
-                  <p className="text-xs sm:text-sm text-[#211A18]/70 mt-0.5">FDA-cleared lasers, HIFU, and Cryolipolysis.</p>
-                </div>
-              </motion.div>
-
-              <motion.div variants={featureItemVariants} className="flex items-start gap-3">
-                <CheckCircle2 className="w-5 h-5 text-[#D6B16A] shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="text-sm sm:text-base font-bold text-[#401724]">Custom Nutrition</h4>
-                  <p className="text-xs sm:text-sm text-[#211A18]/70 mt-0.5">Wholesome meal plans crafted for your metabolism.</p>
-                </div>
-              </motion.div>
-            </motion.div>
-          </motion.div>
+            {/* Progressive Feature Highlights Unfold */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              {storyFeatures.map((feat, i) => (
+                <motion.div
+                  key={feat.title}
+                  variants={shouldReduceMotion ? {} : aboutFeatureSequential(0.35 + i * 0.09)}
+                  initial={shouldReduceMotion ? { opacity: 1 } : "hidden"}
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.2 }}
+                  className="flex items-start gap-3"
+                >
+                  <CheckCircle2 className="w-5 h-5 text-[#D6B16A] shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="text-sm sm:text-base font-bold text-[#401724]">{feat.title}</h4>
+                    <p className="text-xs sm:text-sm text-[#211A18]/70 mt-0.5">{feat.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import { motion, useReducedMotion } from 'motion/react';
 import { NFYVE_CONTACT } from '../data/nfyveData';
-import { luxuryEase } from '../utils/animations';
+import { welcomingEase, contactWelcomeLeft, contactCardBloom } from '../utils/animations';
 
 interface BookingSectionProps {
   preselectedService?: string;
@@ -126,12 +126,12 @@ export const BookingSection: React.FC<BookingSectionProps> = ({ preselectedServi
     <section id="contact" className="py-8 md:py-10 lg:py-12 bg-gradient-to-b from-[#211A18] to-[#401724] relative text-[#FFFAF4]">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
-          {/* Left: Verified Contact Information */}
+          {/* Left: Verified Contact Information with Welcoming Unfold */}
           <motion.div
-            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            variants={shouldReduceMotion ? {} : contactWelcomeLeft}
+            initial={shouldReduceMotion ? { opacity: 1 } : "hidden"}
+            whileInView="visible"
             viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: shouldReduceMotion ? 0 : 0.65, ease: luxuryEase }}
             className="lg:col-span-5 flex flex-col gap-4"
           >
             <div className="inline-flex items-center gap-1.5 text-[#F0C46B] text-[10px] font-bold tracking-wider uppercase">
@@ -204,12 +204,12 @@ export const BookingSection: React.FC<BookingSectionProps> = ({ preselectedServi
             </div>
           </motion.div>
 
-          {/* Right: Booking Form or Confirmation Card with Subtle Entrance */}
+          {/* Right: Booking Form with Welcoming Sanctuary Bloom */}
           <motion.div
-            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20, scale: 0.98 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            variants={shouldReduceMotion ? {} : contactCardBloom}
+            initial={shouldReduceMotion ? { opacity: 1 } : "hidden"}
+            whileInView="visible"
             viewport={{ once: true, amount: 0.15 }}
-            transition={{ duration: shouldReduceMotion ? 0 : 0.7, delay: shouldReduceMotion ? 0 : 0.15, ease: luxuryEase }}
             className="lg:col-span-7"
           >
             <div className="bg-[#242426] rounded-2xl p-5 sm:p-6 md:p-7 border border-[#D6B16A]/50 shadow-2xl relative">

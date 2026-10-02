@@ -10,7 +10,7 @@ import {
 } from 'lucide-react';
 import { motion, useReducedMotion } from 'motion/react';
 import { CAROUSEL_SLIDES } from '../data/nfyveData';
-import { luxuryEase } from '../utils/animations';
+import { structuredEase, bentoCardCascade } from '../utils/animations';
 
 interface WhyChooseUsProps {
   onBookClick: () => void;
@@ -47,44 +47,44 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ onBookClick }) => {
     };
   }, [isPaused, currentSlide]);
 
-  const containerVariants = {
-    hidden: { opacity: shouldReduceMotion ? 1 : 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: shouldReduceMotion ? 0 : 0.08,
-      },
+  const cardsData = [
+    {
+      icon: <Layers className="w-5 h-5 lg:w-5.5 lg:h-5.5" />,
+      title: '5 Wellness Dimensions',
+      desc: 'Save hours every week. Salon, dermatological clinic, slimming suite, gym, and cafe situated in one seamless destination.',
+      bg: 'bg-[#401724]',
+      text: 'text-[#FFFAF4]',
+      subtext: 'text-[#E8D9C7]',
+      iconBg: 'bg-[#211A18]',
     },
-  };
-
-  const itemFadeUp = {
-    hidden: { opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: shouldReduceMotion ? 0 : 0.6,
-        ease: luxuryEase,
-      },
+    {
+      icon: <Cpu className="w-5 h-5 lg:w-5.5 lg:h-5.5" />,
+      title: 'Non-Invasive Tech',
+      desc: 'FDA-cleared fat freeze Cryolipolysis, Lipolysis, Carbon Laser (O3), Pico Laser, and HydraFacial with zero social downtime.',
+      bg: 'bg-[#F7F0E7]',
+      text: 'text-[#401724]',
+      subtext: 'text-[#211A18]/70',
+      iconBg: 'bg-[#401724]',
     },
-  };
-
-  const cardVariants = {
-    hidden: {
-      opacity: shouldReduceMotion ? 1 : 0,
-      y: shouldReduceMotion ? 0 : 24,
-      scale: shouldReduceMotion ? 1 : 0.98,
+    {
+      icon: <HeartPulse className="w-5 h-5 lg:w-5.5 lg:h-5.5" />,
+      title: 'Tailored Protocols',
+      desc: 'Zero generic routines. Every treatment is designed after thorough skin analysis and body composition scans.',
+      bg: 'bg-[#F7F0E7]',
+      text: 'text-[#401724]',
+      subtext: 'text-[#211A18]/70',
+      iconBg: 'bg-[#401724]',
     },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: shouldReduceMotion ? 0 : 0.65,
-        ease: luxuryEase,
-      },
+    {
+      icon: <Sparkles className="w-5 h-5 lg:w-5.5 lg:h-5.5" />,
+      title: 'Calm Ambience',
+      desc: 'Fluted walls, ambient cove lighting, and warm hospitality designed to soothe anxiety the moment you enter.',
+      bg: 'bg-[#401724]',
+      text: 'text-[#FFFAF4]',
+      subtext: 'text-[#E8D9C7]',
+      iconBg: 'bg-[#211A18]',
     },
-  };
+  ];
 
   return (
     <section
@@ -98,107 +98,85 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ onBookClick }) => {
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 w-full my-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Left Column: Why Choose Copy & Bento Grid with Staggered Entrance */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            className="lg:col-span-7 flex flex-col gap-4 sm:gap-5"
-          >
+          {/* Left Column: Progressive Structured Reveal */}
+          <div className="lg:col-span-7 flex flex-col gap-4 sm:gap-5">
             {/* 1. Eyebrow */}
             <motion.div
-              variants={itemFadeUp}
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.6, ease: structuredEase }}
               className="inline-flex items-center gap-2 text-[#401724] text-xs font-bold tracking-wider uppercase"
             >
               <CheckCircle2 className="w-4 h-4 text-[#D6B16A]" />
               <span>Why Choose NFYVE</span>
             </motion.div>
 
-            {/* 2. Heading */}
+            {/* 2. Heading - Revealed First */}
             <motion.h2
-              variants={itemFadeUp}
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.7, delay: shouldReduceMotion ? 0 : 0.1, ease: structuredEase }}
               className="font-serif text-2xl sm:text-3xl lg:text-4xl xl:text-[42px] text-[#401724] font-medium leading-[1.2]"
             >
               Your Complete Transformation Partner Under One Roof.
             </motion.h2>
 
-            {/* 3. Description */}
+            {/* 3. Introduction Paragraph - Revealed Second */}
             <motion.p
-              variants={itemFadeUp}
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.65, delay: shouldReduceMotion ? 0 : 0.2, ease: structuredEase }}
               className="text-sm sm:text-base lg:text-[16px] text-[#211A18]/80 leading-relaxed"
             >
               At <strong>NFYVE – The Change</strong>, we combine Weight Loss, Fitness, Aesthetics, Nutrition, Gym, and Salon care to deliver real, visible results. Our approach is personalized, technology-driven, and focused on helping you achieve long-term transformation—not just temporary changes.
             </motion.p>
 
-            {/* 4. Bento Feature Cards with sequential stagger and subtle hover lift */}
-            <motion.div
-              variants={containerVariants}
-              className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5 pt-1"
-            >
-              {/* Card 1 */}
-              <motion.div
-                variants={cardVariants}
-                whileHover={shouldReduceMotion ? {} : { y: -3, transition: { duration: 0.2 } }}
-                className="p-4 sm:p-5 lg:p-6 rounded-2xl bg-[#401724] border border-[#D6B16A]/50 text-[#FFFAF4] shadow-md transition-shadow duration-300 hover:shadow-xl"
-              >
-                <div className="w-10 h-10 lg:w-11 lg:h-11 rounded-xl bg-[#211A18] border border-[#D6B16A]/40 flex items-center justify-center text-[#F0C46B] mb-2.5 sm:mb-3">
-                  <Layers className="w-5 h-5 lg:w-5.5 lg:h-5.5" />
-                </div>
-                <h4 className="font-serif text-base sm:text-lg lg:text-xl text-[#FFFAF4] mb-1 font-semibold">5 Wellness Dimensions</h4>
-                <p className="text-xs sm:text-sm lg:text-[14px] text-[#E8D9C7] leading-relaxed">
-                  Save hours every week. Salon, dermatological clinic, slimming suite, gym, and cafe situated in one seamless destination.
-                </p>
-              </motion.div>
-
-              {/* Card 2 */}
-              <motion.div
-                variants={cardVariants}
-                whileHover={shouldReduceMotion ? {} : { y: -3, transition: { duration: 0.2 } }}
-                className="p-4 sm:p-5 lg:p-6 rounded-2xl bg-[#F7F0E7] border border-[#D6B16A]/50 text-[#211A18] warm-card-shadow transition-shadow duration-300 hover:shadow-xl"
-              >
-                <div className="w-10 h-10 lg:w-11 lg:h-11 rounded-xl bg-[#401724] flex items-center justify-center text-[#F0C46B] mb-2.5 sm:mb-3">
-                  <Cpu className="w-5 h-5 lg:w-5.5 lg:h-5.5" />
-                </div>
-                <h4 className="font-serif text-base sm:text-lg lg:text-xl text-[#401724] mb-1 font-semibold">Non-Invasive Tech</h4>
-                <p className="text-xs sm:text-sm lg:text-[14px] text-[#211A18]/70 leading-relaxed">
-                  FDA-cleared fat freeze Cryolipolysis, Lipolysis, Carbon Laser (O3), Pico Laser, and HydraFacial with zero social downtime.
-                </p>
-              </motion.div>
-
-              {/* Card 3 */}
-              <motion.div
-                variants={cardVariants}
-                whileHover={shouldReduceMotion ? {} : { y: -3, transition: { duration: 0.2 } }}
-                className="p-4 sm:p-5 lg:p-6 rounded-2xl bg-[#F7F0E7] border border-[#D6B16A]/50 text-[#211A18] warm-card-shadow transition-shadow duration-300 hover:shadow-xl"
-              >
-                <div className="w-10 h-10 lg:w-11 lg:h-11 rounded-xl bg-[#401724] flex items-center justify-center text-[#F0C46B] mb-2.5 sm:mb-3">
-                  <HeartPulse className="w-5 h-5 lg:w-5.5 lg:h-5.5" />
-                </div>
-                <h4 className="font-serif text-base sm:text-lg lg:text-xl text-[#401724] mb-1 font-semibold">Tailored Protocols</h4>
-                <p className="text-xs sm:text-sm lg:text-[14px] text-[#211A18]/70 leading-relaxed">
-                  Zero generic routines. Every treatment is designed after thorough skin analysis and body composition scans.
-                </p>
-              </motion.div>
-
-              {/* Card 4 */}
-              <motion.div
-                variants={cardVariants}
-                whileHover={shouldReduceMotion ? {} : { y: -3, transition: { duration: 0.2 } }}
-                className="p-4 sm:p-5 lg:p-6 rounded-2xl bg-[#401724] border border-[#D6B16A]/50 text-[#FFFAF4] shadow-md transition-shadow duration-300 hover:shadow-xl"
-              >
-                <div className="w-10 h-10 lg:w-11 lg:h-11 rounded-xl bg-[#211A18] border border-[#D6B16A]/40 flex items-center justify-center text-[#F0C46B] mb-2.5 sm:mb-3">
-                  <Sparkles className="w-5 h-5 lg:w-5.5 lg:h-5.5" />
-                </div>
-                <h4 className="font-serif text-base sm:text-lg lg:text-xl text-[#FFFAF4] mb-1 font-semibold">Calm Ambience</h4>
-                <p className="text-xs sm:text-sm lg:text-[14px] text-[#E8D9C7] leading-relaxed">
-                  Fluted walls, ambient cove lighting, and warm hospitality designed to soothe anxiety the moment you enter.
-                </p>
-              </motion.div>
-            </motion.div>
+            {/* 4. Bento Feature Cards in Cascading Structured Staircase */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5 pt-1">
+              {cardsData.map((card, idx) => (
+                <motion.div
+                  key={card.title}
+                  variants={shouldReduceMotion ? {} : bentoCardCascade(idx)}
+                  initial={shouldReduceMotion ? { opacity: 1 } : "hidden"}
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.2 }}
+                  whileHover={
+                    shouldReduceMotion
+                      ? {}
+                      : {
+                          y: -4,
+                          scale: 1.02,
+                          transition: { duration: 0.2 },
+                        }
+                  }
+                  className={`p-4 sm:p-5 lg:p-6 rounded-2xl ${card.bg} border border-[#D6B16A]/50 ${card.text} shadow-md transition-shadow hover:shadow-xl`}
+                >
+                  <div
+                    className={`w-10 h-10 lg:w-11 lg:h-11 rounded-xl ${card.iconBg} border border-[#D6B16A]/40 flex items-center justify-center text-[#F0C46B] mb-2.5 sm:mb-3`}
+                  >
+                    {card.icon}
+                  </div>
+                  <h4 className={`font-serif text-base sm:text-lg lg:text-xl ${card.text} mb-1 font-semibold`}>
+                    {card.title}
+                  </h4>
+                  <p className={`text-xs sm:text-sm lg:text-[14px] ${card.subtext} leading-relaxed`}>
+                    {card.desc}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
 
             {/* 5. CTA Button */}
-            <motion.div variants={itemFadeUp} className="pt-2 flex flex-wrap items-center gap-4">
+            <motion.div
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.6, delay: shouldReduceMotion ? 0 : 0.5, ease: structuredEase }}
+              className="pt-2 flex flex-wrap items-center gap-4"
+            >
               <button
                 onClick={onBookClick}
                 className="px-6 py-3 sm:px-7 sm:py-3.5 rounded-full bg-[#401724] text-[#FFFAF4] text-xs sm:text-sm lg:text-base font-semibold hover:bg-[#571f31] transition-all shadow-lg bloom-shadow active:scale-95 border border-[#D6B16A] cursor-pointer"
@@ -207,14 +185,14 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ onBookClick }) => {
               </button>
               <span className="text-xs sm:text-sm text-[#401724]/85 font-medium">Personalized tour included</span>
             </motion.div>
-          </motion.div>
+          </div>
 
-          {/* Right Column: Horizontal Image Carousel with Subtle Entrance Transition */}
+          {/* Right Column: Carousel with Structured Settle */}
           <motion.div
-            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.96 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.95, y: 20 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: shouldReduceMotion ? 0 : 0.75, delay: shouldReduceMotion ? 0 : 0.15, ease: luxuryEase }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.8, delay: shouldReduceMotion ? 0 : 0.25, ease: structuredEase }}
             className="lg:col-span-5 relative"
           >
             <div
@@ -245,6 +223,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ onBookClick }) => {
                       <div className="font-serif text-2xl font-semibold">{slide.title}</div>
                       <p className="text-xs sm:text-sm text-[#E8D9C7] mt-1.5 leading-relaxed">{slide.caption}</p>
 
+                      {/* Structured Statistics Pill */}
                       <div className="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-[#D6B16A]/30">
                         <div>
                           <div className="font-serif text-xl sm:text-2xl font-bold text-[#F0C46B]">98%</div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Star, CheckCircle, MessageSquareQuote } from 'lucide-react';
 import { motion, useReducedMotion } from 'motion/react';
 import { TESTIMONIALS_ROW_1, TESTIMONIALS_ROW_2, TestimonialItem } from '../data/nfyveData';
-import { luxuryEase } from '../utils/animations';
+import { sereneEase, reviewsHeaderDrift, reviewsBadgeFloat } from '../utils/animations';
 
 export const ReviewsSection: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -44,15 +44,14 @@ export const ReviewsSection: React.FC = () => {
       className="min-h-[calc(100vh-90px)] lg:min-h-[calc(100svh-90px)] py-12 md:py-16 lg:py-20 bg-[#F7F0E7] relative overflow-hidden flex flex-col justify-center"
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 w-full mb-8 sm:mb-10">
-        {/* Verified Rating Header Banner - Revealed before testimonial content */}
-        <motion.div
-          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: shouldReduceMotion ? 0 : 0.65, ease: luxuryEase }}
-          className="flex flex-col md:flex-row items-start md:items-center justify-between pb-6 border-b border-[#D6B16A]/40 gap-4"
-        >
-          <div>
+        {/* Verified Rating Header Banner with Serene Drift */}
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between pb-6 border-b border-[#D6B16A]/40 gap-4">
+          <motion.div
+            variants={shouldReduceMotion ? {} : reviewsHeaderDrift}
+            initial={shouldReduceMotion ? { opacity: 1 } : "hidden"}
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
             <div className="inline-flex items-center gap-2 text-[#401724] text-xs font-bold tracking-wider uppercase mb-1">
               <MessageSquareQuote className="w-4 h-4 text-[#D6B16A]" />
               <span>REAL PATIENT &amp; CLIENT STORIES</span>
@@ -60,14 +59,14 @@ export const ReviewsSection: React.FC = () => {
             <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-[#401724] font-medium leading-tight">
               Our Clients' Inspiring Transformations
             </h2>
-          </div>
+          </motion.div>
 
-          {/* Trustindex Google Reviews Aggregate Badge */}
+          {/* Trustindex Google Reviews Aggregate Badge with Gentle Cascade */}
           <motion.div
-            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.95, y: 12 }}
-            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            variants={shouldReduceMotion ? {} : reviewsBadgeFloat}
+            initial={shouldReduceMotion ? { opacity: 1 } : "hidden"}
+            whileInView="visible"
             viewport={{ once: true }}
-            transition={{ duration: shouldReduceMotion ? 0 : 0.55, delay: shouldReduceMotion ? 0 : 0.15, ease: luxuryEase }}
             className="flex items-center gap-3.5 bg-[#E8D9C7] px-5 py-3 rounded-2xl border-2 border-[#D6B16A]/50 shadow-md shrink-0"
           >
             <div className="w-11 h-11 rounded-full bg-[#401724] flex items-center justify-center text-[#F0C46B] font-bold shadow-inner">
@@ -85,15 +84,15 @@ export const ReviewsSection: React.FC = () => {
               </p>
             </div>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
 
-      {/* Testimonial Rows with Smooth Entrance Reveal */}
+      {/* Testimonial Rows with Serene Floating Entrance */}
       <motion.div
-        initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 24 }}
+        initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.15 }}
-        transition={{ duration: shouldReduceMotion ? 0 : 0.7, delay: shouldReduceMotion ? 0 : 0.2, ease: luxuryEase }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.85, delay: shouldReduceMotion ? 0 : 0.15, ease: sereneEase }}
         className="flex flex-col gap-5 sm:gap-6 relative w-full"
       >
         {/* Soft Gradient Masking Vignettes */}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Camera, Eye, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { GALLERY_ITEMS, GalleryItem } from '../data/nfyveData';
-import { luxuryEase } from '../utils/animations';
+import { luxuryEase, galleryEditorialItem } from '../utils/animations';
 
 export const GallerySection: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>('all');
@@ -49,42 +49,15 @@ export const GallerySection: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   });
 
-  const gridContainerVariants = {
-    hidden: { opacity: shouldReduceMotion ? 1 : 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: shouldReduceMotion ? 0 : 0.08,
-      },
-    },
-  };
-
-  const cardVariants = {
-    hidden: {
-      opacity: shouldReduceMotion ? 1 : 0,
-      y: shouldReduceMotion ? 0 : 24,
-      scale: shouldReduceMotion ? 1 : 0.96,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: shouldReduceMotion ? 0 : 0.65,
-        ease: luxuryEase,
-      },
-    },
-  };
-
   return (
     <section id="gallery" className="py-8 md:py-10 bg-[#242426] relative text-[#FFFAF4]">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        {/* Header */}
+        {/* Header - Editorial Curated Label */}
         <motion.div
-          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 22 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: shouldReduceMotion ? 0 : 0.6, ease: luxuryEase }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.65, ease: luxuryEase }}
           className="text-center max-w-2xl mx-auto mb-4 sm:mb-5"
         >
           <div className="inline-flex items-center gap-1.5 text-[#F0C46B] text-[10px] font-bold tracking-wider uppercase mb-1">
@@ -125,20 +98,27 @@ export const GallerySection: React.FC = () => {
           ))}
         </motion.div>
 
-        {/* Editorial Asymmetric Grid with Sequential Card Entrance */}
-        <motion.div
+        {/* Editorial Asymmetric Grid with Staggered Scale-and-Fade Reveals */}
+        <div
           key={activeCategory}
-          variants={gridContainerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }}
           className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 auto-rows-[140px] md:auto-rows-[150px]"
         >
-          {filteredItems.map((item) => (
+          {filteredItems.map((item, index) => (
             <motion.div
               key={item.id}
-              variants={cardVariants}
-              whileHover={shouldReduceMotion ? {} : { y: -3, transition: { duration: 0.2 } }}
+              variants={shouldReduceMotion ? {} : galleryEditorialItem(index)}
+              initial={shouldReduceMotion ? { opacity: 1 } : "hidden"}
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.15 }}
+              whileHover={
+                shouldReduceMotion
+                  ? {}
+                  : {
+                      y: -4,
+                      boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.5)',
+                      transition: { duration: 0.25 },
+                    }
+              }
               className={`relative rounded-2xl overflow-hidden group border border-[#D6B16A]/40 hover:border-[#F0C46B] shadow-xl cursor-pointer bg-[#211A18] ${
                 item.aspectClass
               }`}
@@ -146,12 +126,12 @@ export const GallerySection: React.FC = () => {
             >
               <img
                 alt={item.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
                 src={item.image}
                 referrerPolicy="no-referrer"
               />
 
-              {/* Subtle gradient overlay & readable caption */}
+              {/* Gradient overlay & editorial caption */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#211A18]/95 via-[#211A18]/40 to-transparent opacity-90 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4 sm:p-5">
                 <span className="text-[10px] text-[#F0C46B] tracking-wider uppercase font-semibold">
                   {item.subtitle}
@@ -166,7 +146,7 @@ export const GallerySection: React.FC = () => {
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
 
       {/* Lightbox Modal */}
