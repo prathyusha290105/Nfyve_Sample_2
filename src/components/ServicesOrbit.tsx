@@ -10,7 +10,9 @@ import {
   CheckCircle2,
   Calendar,
 } from 'lucide-react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { SERVICE_PILLARS, ServicePillar } from '../data/nfyveData';
+import { luxuryEase } from '../utils/animations';
 
 interface ServicesOrbitProps {
   onSelectServiceForBooking: (serviceName: string) => void;
@@ -19,6 +21,7 @@ interface ServicesOrbitProps {
 export const ServicesOrbit: React.FC<ServicesOrbitProps> = ({ onSelectServiceForBooking }) => {
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [detailPillar, setDetailPillar] = useState<ServicePillar | null>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   const currentPillar = SERVICE_PILLARS[selectedIndex];
 
@@ -59,8 +62,14 @@ export const ServicesOrbit: React.FC<ServicesOrbitProps> = ({ onSelectServiceFor
       />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-        {/* Section Header */}
-        <div className="flex flex-col items-center text-center max-w-2xl mx-auto mb-4 sm:mb-5">
+        {/* Section Header with Viewport Entrance Animation */}
+        <motion.div
+          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.6, ease: luxuryEase }}
+          className="flex flex-col items-center text-center max-w-2xl mx-auto mb-4 sm:mb-5"
+        >
           <div className="inline-flex items-center gap-1.5 text-[#401724] text-[10px] font-bold tracking-wider uppercase mb-1">
             <Sparkles className="w-3.5 h-3.5 text-[#D6B16A]" />
             <span>★ FIVE DEDICATED PILLARS OF TRANSFORMATION</span>
@@ -71,17 +80,29 @@ export const ServicesOrbit: React.FC<ServicesOrbitProps> = ({ onSelectServiceFor
           <p className="text-[#211A18]/80 text-xs sm:text-sm max-w-xl leading-relaxed">
             Explore specialized wings staffed by certified dermatologists, trichologists, master colorists, ACE fitness trainers, and certified dieticians.
           </p>
-        </div>
+        </motion.div>
 
         {/* Interactive Circular Orbit System (Desktop & Tablet) */}
-        <div className="hidden md:flex justify-center items-center relative min-h-[460px] h-[460px] my-1 orbit-system-wrapper">
+        <motion.div
+          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.96 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.7, ease: luxuryEase }}
+          className="hidden md:flex justify-center items-center relative min-h-[460px] h-[460px] my-1 orbit-system-wrapper"
+        >
           {/* Concentric Orbital Guide Rings */}
           <div className="absolute w-[460px] h-[460px] rounded-full border border-dashed border-[#D6B16A]/40 pointer-events-none" />
           <div className="absolute w-[360px] h-[360px] rounded-full border border-[#D6B16A]/50 pointer-events-none" />
           <div className="absolute w-[260px] h-[260px] rounded-full border border-[#D6B16A]/30 pointer-events-none" />
 
           {/* Center Stationary Luminous Focal Heart */}
-          <div className="relative z-30 w-[180px] h-[180px] rounded-full bg-gradient-to-b from-[#401724] to-[#211A18] border-3 border-[#F0C46B] luminous-halo p-2.5 flex flex-col items-center justify-center text-center overflow-hidden transition-all duration-500 shadow-2xl group">
+          <motion.div
+            initial={shouldReduceMotion ? { scale: 1, opacity: 1 } : { scale: 0.9, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.65, delay: shouldReduceMotion ? 0 : 0.2, ease: luxuryEase }}
+            className="relative z-30 w-[180px] h-[180px] rounded-full bg-gradient-to-b from-[#401724] to-[#211A18] border-3 border-[#F0C46B] luminous-halo p-2.5 flex flex-col items-center justify-center text-center overflow-hidden transition-all duration-500 shadow-2xl group"
+          >
             {/* Background luxury portrait image with overlay */}
             <img
               alt={currentPillar.title}
@@ -113,7 +134,7 @@ export const ServicesOrbit: React.FC<ServicesOrbitProps> = ({ onSelectServiceFor
                 <ArrowRight className="w-2.5 h-2.5 text-[#211A18] group-hover/btn:translate-x-0.5 transition-transform" />
               </button>
             </div>
-          </div>
+          </motion.div>
 
           {/* Continuously Orbiting Track */}
           <div className="absolute w-[460px] h-[460px] rounded-full pointer-events-auto orbit-track">
@@ -168,9 +189,9 @@ export const ServicesOrbit: React.FC<ServicesOrbitProps> = ({ onSelectServiceFor
               );
             })}
           </div>
-        </div>
+        </motion.div>
 
-        {/* Mobile Touch-Friendly Alternative View */}
+        {/* Mobile Touch-Friendly Alternative View with Staggered Entrance */}
         <div className="md:hidden flex flex-col gap-5">
           <div className="flex items-center gap-2 overflow-x-auto pb-2 custom-scroll-hide">
             {SERVICE_PILLARS.map((pillar, idx) => (
@@ -188,7 +209,13 @@ export const ServicesOrbit: React.FC<ServicesOrbitProps> = ({ onSelectServiceFor
             ))}
           </div>
 
-          <div className="bg-[#F7F0E7] rounded-3xl p-6 border border-[#D6B16A]/40 warm-card-shadow relative overflow-hidden">
+          <motion.div
+            key={currentPillar.id}
+            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 16, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.45, ease: luxuryEase }}
+            className="bg-[#F7F0E7] rounded-3xl p-6 border border-[#D6B16A]/40 warm-card-shadow relative overflow-hidden"
+          >
             <div className="w-full h-44 rounded-2xl overflow-hidden mb-4 relative">
               <img
                 alt={currentPillar.title}
@@ -218,7 +245,7 @@ export const ServicesOrbit: React.FC<ServicesOrbitProps> = ({ onSelectServiceFor
               <span>Explore Wing Treatments</span>
               <ArrowRight className="w-4 h-4 text-[#F0C46B]" />
             </button>
-          </div>
+          </motion.div>
         </div>
 
         {/* Orbit Helper Instruction */}
@@ -230,69 +257,77 @@ export const ServicesOrbit: React.FC<ServicesOrbitProps> = ({ onSelectServiceFor
         </div>
       </div>
 
-      {/* Full Pillar Detail Modal */}
-      {detailPillar && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-50 bg-[#211A18]/85 backdrop-blur-md flex items-center justify-center p-4 md:p-6"
-        >
-          <div className="bg-[#242426] border-2 border-[#D6B16A] rounded-2xl max-w-xl w-full p-5 md:p-6 text-[#FFFAF4] shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
-            <button
-              onClick={() => setDetailPillar(null)}
-              className="absolute top-4 right-4 p-1.5 rounded-full bg-[#401724] text-[#E8D9C7] hover:text-[#FFFAF4] hover:bg-[#571f31] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F0C46B]"
-              aria-label="Close modal"
+      {/* Full Pillar Detail Modal with Smooth Motion Transition */}
+      <AnimatePresence>
+        {detailPillar && (
+          <div
+            role="dialog"
+            aria-modal="true"
+            className="fixed inset-0 z-50 bg-[#211A18]/85 backdrop-blur-md flex items-center justify-center p-4 md:p-6"
+          >
+            <motion.div
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.94, y: 16 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.94, y: 16 }}
+              transition={{ duration: 0.25, ease: luxuryEase }}
+              className="bg-[#242426] border-2 border-[#D6B16A] rounded-2xl max-w-xl w-full p-5 md:p-6 text-[#FFFAF4] shadow-2xl relative"
             >
-              <X className="w-4 h-4" />
-            </button>
-
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-full bg-[#401724] border border-[#D6B16A]/50 flex items-center justify-center text-[#F0C46B]">
-                {getIcon(detailPillar.icon, 'w-5 h-5 text-[#F0C46B]')}
-              </div>
-              <div>
-                <span className="text-[10px] text-[#F0C46B] uppercase font-bold tracking-widest">
-                  {detailPillar.tag}
-                </span>
-                <h3 className="font-serif text-xl font-bold text-[#FFFAF4]">{detailPillar.title}</h3>
-              </div>
-            </div>
-
-            <p className="text-xs sm:text-sm text-[#E8D9C7] leading-relaxed mb-4">{detailPillar.fullDesc}</p>
-
-            <div className="mb-4">
-              <h4 className="text-[10px] uppercase tracking-wider text-[#F0C46B] font-bold mb-2">
-                Featured Clinical &amp; Sanctuary Treatments
-              </h4>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {detailPillar.treatments.map((treatment, i) => (
-                  <li key={i} className="flex items-start gap-2 text-xs text-[#FFFAF4]">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#D6B16A] shrink-0 mt-0.5" />
-                    <span>{treatment}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="pt-3 border-t border-[#D6B16A]/30 flex flex-col sm:flex-row items-center justify-between gap-3">
-              <div className="text-[11px] text-[#E8D9C7]/80">
-                Administered in private suites on the 4th Floor, Begumpet.
-              </div>
               <button
-                onClick={() => {
-                  const serviceName = detailPillar.title;
-                  setDetailPillar(null);
-                  onSelectServiceForBooking(serviceName);
-                }}
-                className="w-full sm:w-auto px-5 py-2 rounded-full bg-[#401724] text-[#FFFAF4] text-xs font-semibold hover:bg-[#571f31] transition-all flex items-center justify-center gap-1.5 border border-[#D6B16A] bloom-shadow"
+                onClick={() => setDetailPillar(null)}
+                className="absolute top-4 right-4 p-1.5 rounded-full bg-[#401724] text-[#E8D9C7] hover:text-[#FFFAF4] hover:bg-[#571f31] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F0C46B]"
+                aria-label="Close modal"
               >
-                <Calendar className="w-3.5 h-3.5 text-[#F0C46B]" />
-                <span>Book This Service</span>
+                <X className="w-4 h-4" />
               </button>
-            </div>
+
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 rounded-full bg-[#401724] border border-[#D6B16A]/50 flex items-center justify-center text-[#F0C46B]">
+                  {getIcon(detailPillar.icon, 'w-5 h-5 text-[#F0C46B]')}
+                </div>
+                <div>
+                  <span className="text-[10px] text-[#F0C46B] uppercase font-bold tracking-widest">
+                    {detailPillar.tag}
+                  </span>
+                  <h3 className="font-serif text-xl font-bold text-[#FFFAF4]">{detailPillar.title}</h3>
+                </div>
+              </div>
+
+              <p className="text-xs sm:text-sm text-[#E8D9C7] leading-relaxed mb-4">{detailPillar.fullDesc}</p>
+
+              <div className="mb-4">
+                <h4 className="text-[10px] uppercase tracking-wider text-[#F0C46B] font-bold mb-2">
+                  Featured Clinical &amp; Sanctuary Treatments
+                </h4>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {detailPillar.treatments.map((treatment, i) => (
+                    <li key={i} className="flex items-start gap-2 text-xs text-[#FFFAF4]">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#D6B16A] shrink-0 mt-0.5" />
+                      <span>{treatment}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="pt-3 border-t border-[#D6B16A]/30 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div className="text-[11px] text-[#E8D9C7]/80">
+                  Administered in private suites on the 4th Floor, Begumpet.
+                </div>
+                <button
+                  onClick={() => {
+                    const serviceName = detailPillar.title;
+                    setDetailPillar(null);
+                    onSelectServiceForBooking(serviceName);
+                  }}
+                  className="w-full sm:w-auto px-5 py-2 rounded-full bg-[#401724] text-[#FFFAF4] text-xs font-semibold hover:bg-[#571f31] transition-all flex items-center justify-center gap-1.5 border border-[#D6B16A] bloom-shadow"
+                >
+                  <Calendar className="w-3.5 h-3.5 text-[#F0C46B]" />
+                  <span>Book This Service</span>
+                </button>
+              </div>
+            </motion.div>
           </div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
     </section>
   );
 };

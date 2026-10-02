@@ -29,13 +29,14 @@ export const Header: React.FC<HeaderProps> = ({ onBookClick }) => {
   };
 
   return (
-    <header className="bg-[#211A18]/90 backdrop-blur-md sticky top-0 z-50 shadow-md border-b border-[#D6B16A]/30">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center w-full h-14 md:h-15">
+    <header className="bg-[#211A18]/95 backdrop-blur-md sticky top-0 z-50 shadow-md border-b border-[#D6B16A]/30">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center w-full h-[86px] sm:h-[88px] lg:h-[90px]">
         {/* Zone 1: Brand Wordmark & Emblem */}
         <a
           href="#hero"
           onClick={(e) => handleNavClick(e, '#hero')}
           className="flex items-center gap-2.5 transition-transform duration-200 active:scale-95 group focus-visible:outline focus-visible:outline-[#F0C46B]"
+          aria-label="NFYVE – The Change Home"
         >
           <div className="w-8 h-8 md:w-8.5 md:h-8.5 rounded-full bg-[#401724] border border-[#D6B16A]/50 flex items-center justify-center p-1.5 shadow-md">
             <img
@@ -56,7 +57,7 @@ export const Header: React.FC<HeaderProps> = ({ onBookClick }) => {
         </a>
 
         {/* Zone 2: Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-5 text-xs font-medium">
+        <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-xs xl:text-[13px] font-medium tracking-wide">
           {navLinks.map((link) => (
             <a
               key={link.href}
@@ -70,11 +71,11 @@ export const Header: React.FC<HeaderProps> = ({ onBookClick }) => {
         </nav>
 
         {/* Zone 3: Trailing Action Cluster */}
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-3 sm:gap-4">
           {/* Phone Badge */}
           <a
             href={`tel:${NFYVE_CONTACT.phone}`}
-            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#401724]/80 text-[#FFFAF4] border border-[#D6B16A]/40 hover:border-[#F0C46B] hover:bg-[#401724] transition-all duration-200 text-xs font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F0C46B]"
+            className="hidden sm:inline-flex items-center gap-2 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-full bg-[#401724]/80 text-[#FFFAF4] border border-[#D6B16A]/40 hover:border-[#F0C46B] hover:bg-[#401724] transition-all duration-200 text-xs sm:text-[13px] font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F0C46B]"
             aria-label="Call NFYVE Begumpet Sanctuary"
           >
             <Phone className="w-3.5 h-3.5 text-[#F0C46B]" />
@@ -84,7 +85,7 @@ export const Header: React.FC<HeaderProps> = ({ onBookClick }) => {
           {/* Primary Booking Button */}
           <button
             onClick={onBookClick}
-            className="px-3.5 py-1.5 rounded-full bg-[#401724] text-[#FFFAF4] text-xs font-semibold hover:bg-[#521e2f] shadow-md hover:shadow-lg transition-all duration-300 ease-out active:scale-95 flex items-center gap-1.5 border border-[#D6B16A]/70 bloom-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F0C46B] cursor-pointer"
+            className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-full bg-[#401724] text-[#FFFAF4] text-xs sm:text-[13px] font-semibold hover:bg-[#521e2f] shadow-md hover:shadow-lg transition-all duration-300 ease-out active:scale-95 flex items-center gap-2 border border-[#D6B16A]/70 bloom-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F0C46B] cursor-pointer"
           >
             <Calendar className="w-3.5 h-3.5 text-[#F0C46B]" />
             <span className="whitespace-nowrap">Book Appointment</span>
@@ -93,11 +94,11 @@ export const Header: React.FC<HeaderProps> = ({ onBookClick }) => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-1.5 rounded-lg text-[#E8D9C7] hover:text-[#F0C46B] hover:bg-[#401724]/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F0C46B]"
+            className="lg:hidden p-2 rounded-lg text-[#E8D9C7] hover:text-[#F0C46B] hover:bg-[#401724]/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F0C46B]"
             aria-label="Toggle navigation menu"
             aria-expanded={mobileMenuOpen}
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
       </div>

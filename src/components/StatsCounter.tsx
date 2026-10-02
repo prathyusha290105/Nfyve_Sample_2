@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Smile, Star, Diamond, ShieldCheck } from 'lucide-react';
+import { motion, useReducedMotion } from 'motion/react';
+import { luxuryEase } from '../utils/animations';
 
 interface StatItem {
   id: string;
@@ -45,6 +47,7 @@ export const StatsCounter: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const [counts, setCounts] = useState<number[]>(STATS.map(() => 0));
   const hasAnimatedRef = useRef(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     // Check prefers-reduced-motion
@@ -70,7 +73,6 @@ export const StatsCounter: React.FC = () => {
       const animate = (currentTime: number) => {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        // easeOutCubic curve: 1 - Math.pow(1 - progress, 3)
         const easeOut = 1 - Math.pow(1 - progress, 3);
 
         const nextCounts = STATS.map((stat) => {
@@ -99,7 +101,7 @@ export const StatsCounter: React.FC = () => {
         }
       },
       {
-        threshold: 0.1, // Trigger reliably as soon as section enters viewport
+        threshold: 0.1,
       }
     );
 
@@ -120,6 +122,33 @@ export const StatsCounter: React.FC = () => {
     };
   }, []);
 
+  const containerVariants = {
+    hidden: { opacity: shouldReduceMotion ? 1 : 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: shouldReduceMotion ? 0 : 0.08,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: {
+      opacity: shouldReduceMotion ? 1 : 0,
+      y: shouldReduceMotion ? 0 : 16,
+      scale: shouldReduceMotion ? 1 : 0.98,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: shouldReduceMotion ? 0 : 0.6,
+        ease: luxuryEase,
+      },
+    },
+  };
+
   return (
     <section
       ref={sectionRef}
@@ -127,21 +156,35 @@ export const StatsCounter: React.FC = () => {
       aria-label="Verified transformation statistics"
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="text-center max-w-3xl mx-auto mb-4 sm:mb-5">
+        <motion.div
+          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.6, ease: luxuryEase }}
+          className="text-center max-w-3xl mx-auto mb-4 sm:mb-5"
+        >
           <p className="font-serif italic text-sm sm:text-base md:text-lg text-[#401724] mb-1 font-medium leading-relaxed">
             "NFYVE – The Change redefines Wellness by blending Beauty, Aesthetics, Fitness, &amp; Nutri Food into one seamless journey of transformation &amp; self-care."
           </p>
           <span className="text-[10px] text-[#401724]/75 uppercase tracking-widest font-bold">
             — Begumpet Flagship Sanctuary
           </span>
-        </div>
+        </motion.div>
 
-        {/* 4 Verified Metrics Bento Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+        {/* 4 Verified Metrics Bento Grid with Sequential Reveal */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4"
+        >
           {STATS.map((stat, index) => (
-            <div
+            <motion.div
               key={stat.id}
-              className="bg-[#F7F0E7] rounded-xl p-3 sm:p-4 text-center border border-[#D6B16A]/40 warm-card-shadow transition-transform hover:-translate-y-1 duration-300"
+              variants={cardVariants}
+              whileHover={shouldReduceMotion ? {} : { y: -2, transition: { duration: 0.2 } }}
+              className="bg-[#F7F0E7] rounded-xl p-3 sm:p-4 text-center border border-[#D6B16A]/40 warm-card-shadow transition-shadow hover:shadow-md"
             >
               <div className="w-7 h-7 rounded-full bg-[#401724] mx-auto flex items-center justify-center mb-1.5 shadow-sm">
                 {stat.icon}
@@ -154,9 +197,9 @@ export const StatsCounter: React.FC = () => {
               <div className="text-[9px] sm:text-[10px] text-[#401724]/80 mt-1 uppercase tracking-wider font-semibold">
                 {stat.label}
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

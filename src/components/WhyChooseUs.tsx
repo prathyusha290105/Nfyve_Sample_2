@@ -8,7 +8,9 @@ import {
   ChevronRight,
   CheckCircle2,
 } from 'lucide-react';
+import { motion, useReducedMotion } from 'motion/react';
 import { CAROUSEL_SLIDES } from '../data/nfyveData';
+import { luxuryEase } from '../utils/animations';
 
 interface WhyChooseUsProps {
   onBookClick: () => void;
@@ -18,6 +20,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ onBookClick }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   const totalSlides = CAROUSEL_SLIDES.length;
 
@@ -44,10 +47,49 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ onBookClick }) => {
     };
   }, [isPaused, currentSlide]);
 
+  const containerVariants = {
+    hidden: { opacity: shouldReduceMotion ? 1 : 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: shouldReduceMotion ? 0 : 0.08,
+      },
+    },
+  };
+
+  const itemFadeUp = {
+    hidden: { opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: shouldReduceMotion ? 0 : 0.6,
+        ease: luxuryEase,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: {
+      opacity: shouldReduceMotion ? 1 : 0,
+      y: shouldReduceMotion ? 0 : 24,
+      scale: shouldReduceMotion ? 1 : 0.98,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: shouldReduceMotion ? 0 : 0.65,
+        ease: luxuryEase,
+      },
+    },
+  };
+
   return (
     <section
       id="why-us"
-      className="min-h-[calc(100vh-60px)] md:min-h-[calc(100svh-60px)] py-12 md:py-16 lg:py-20 bg-[#E8D9C7] relative overflow-hidden flex flex-col justify-center"
+      className="min-h-[calc(100vh-90px)] lg:min-h-[calc(100svh-90px)] py-12 md:py-16 lg:py-20 bg-[#E8D9C7] relative overflow-hidden flex flex-col justify-center"
     >
       <div
         className="absolute bottom-0 right-0 w-96 h-96 bg-[#D6B16A]/20 rounded-full blur-3xl pointer-events-none"
@@ -56,82 +98,127 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ onBookClick }) => {
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 w-full my-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Left Column: Why Choose Copy & Bento Grid */}
-          <div className="lg:col-span-7 flex flex-col gap-4 sm:gap-5">
-            <div className="inline-flex items-center gap-2 text-[#401724] text-xs font-bold tracking-wider uppercase">
+          {/* Left Column: Why Choose Copy & Bento Grid with Staggered Entrance */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="lg:col-span-7 flex flex-col gap-4 sm:gap-5"
+          >
+            {/* 1. Eyebrow */}
+            <motion.div
+              variants={itemFadeUp}
+              className="inline-flex items-center gap-2 text-[#401724] text-xs font-bold tracking-wider uppercase"
+            >
               <CheckCircle2 className="w-4 h-4 text-[#D6B16A]" />
               <span>Why Choose NFYVE</span>
-            </div>
+            </motion.div>
 
-            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl xl:text-[40px] text-[#401724] font-medium leading-[1.2]">
+            {/* 2. Heading */}
+            <motion.h2
+              variants={itemFadeUp}
+              className="font-serif text-2xl sm:text-3xl lg:text-4xl xl:text-[42px] text-[#401724] font-medium leading-[1.2]"
+            >
               Your Complete Transformation Partner Under One Roof.
-            </h2>
+            </motion.h2>
 
-            <p className="text-sm sm:text-base text-[#211A18]/80 leading-relaxed">
+            {/* 3. Description */}
+            <motion.p
+              variants={itemFadeUp}
+              className="text-sm sm:text-base lg:text-[16px] text-[#211A18]/80 leading-relaxed"
+            >
               At <strong>NFYVE – The Change</strong>, we combine Weight Loss, Fitness, Aesthetics, Nutrition, Gym, and Salon care to deliver real, visible results. Our approach is personalized, technology-driven, and focused on helping you achieve long-term transformation—not just temporary changes.
-            </p>
+            </motion.p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 pt-1">
+            {/* 4. Bento Feature Cards with sequential stagger and subtle hover lift */}
+            <motion.div
+              variants={containerVariants}
+              className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5 pt-1"
+            >
               {/* Card 1 */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#401724] border border-[#D6B16A]/50 text-[#FFFAF4] shadow-md">
-                <div className="w-10 h-10 rounded-xl bg-[#211A18] border border-[#D6B16A]/40 flex items-center justify-center text-[#F0C46B] mb-2.5">
-                  <Layers className="w-5 h-5" />
+              <motion.div
+                variants={cardVariants}
+                whileHover={shouldReduceMotion ? {} : { y: -3, transition: { duration: 0.2 } }}
+                className="p-4 sm:p-5 lg:p-6 rounded-2xl bg-[#401724] border border-[#D6B16A]/50 text-[#FFFAF4] shadow-md transition-shadow duration-300 hover:shadow-xl"
+              >
+                <div className="w-10 h-10 lg:w-11 lg:h-11 rounded-xl bg-[#211A18] border border-[#D6B16A]/40 flex items-center justify-center text-[#F0C46B] mb-2.5 sm:mb-3">
+                  <Layers className="w-5 h-5 lg:w-5.5 lg:h-5.5" />
                 </div>
-                <h4 className="font-serif text-base sm:text-lg text-[#FFFAF4] mb-1 font-semibold">5 Wellness Dimensions</h4>
-                <p className="text-xs sm:text-sm text-[#E8D9C7] leading-relaxed">
+                <h4 className="font-serif text-base sm:text-lg lg:text-xl text-[#FFFAF4] mb-1 font-semibold">5 Wellness Dimensions</h4>
+                <p className="text-xs sm:text-sm lg:text-[14px] text-[#E8D9C7] leading-relaxed">
                   Save hours every week. Salon, dermatological clinic, slimming suite, gym, and cafe situated in one seamless destination.
                 </p>
-              </div>
+              </motion.div>
 
               {/* Card 2 */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#F7F0E7] border border-[#D6B16A]/50 text-[#211A18] warm-card-shadow">
-                <div className="w-10 h-10 rounded-xl bg-[#401724] flex items-center justify-center text-[#F0C46B] mb-2.5">
-                  <Cpu className="w-5 h-5" />
+              <motion.div
+                variants={cardVariants}
+                whileHover={shouldReduceMotion ? {} : { y: -3, transition: { duration: 0.2 } }}
+                className="p-4 sm:p-5 lg:p-6 rounded-2xl bg-[#F7F0E7] border border-[#D6B16A]/50 text-[#211A18] warm-card-shadow transition-shadow duration-300 hover:shadow-xl"
+              >
+                <div className="w-10 h-10 lg:w-11 lg:h-11 rounded-xl bg-[#401724] flex items-center justify-center text-[#F0C46B] mb-2.5 sm:mb-3">
+                  <Cpu className="w-5 h-5 lg:w-5.5 lg:h-5.5" />
                 </div>
-                <h4 className="font-serif text-base sm:text-lg text-[#401724] mb-1 font-semibold">Non-Invasive Tech</h4>
-                <p className="text-xs sm:text-sm text-[#211A18]/70 leading-relaxed">
+                <h4 className="font-serif text-base sm:text-lg lg:text-xl text-[#401724] mb-1 font-semibold">Non-Invasive Tech</h4>
+                <p className="text-xs sm:text-sm lg:text-[14px] text-[#211A18]/70 leading-relaxed">
                   FDA-cleared fat freeze Cryolipolysis, Lipolysis, Carbon Laser (O3), Pico Laser, and HydraFacial with zero social downtime.
                 </p>
-              </div>
+              </motion.div>
 
               {/* Card 3 */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#F7F0E7] border border-[#D6B16A]/50 text-[#211A18] warm-card-shadow">
-                <div className="w-10 h-10 rounded-xl bg-[#401724] flex items-center justify-center text-[#F0C46B] mb-2.5">
-                  <HeartPulse className="w-5 h-5" />
+              <motion.div
+                variants={cardVariants}
+                whileHover={shouldReduceMotion ? {} : { y: -3, transition: { duration: 0.2 } }}
+                className="p-4 sm:p-5 lg:p-6 rounded-2xl bg-[#F7F0E7] border border-[#D6B16A]/50 text-[#211A18] warm-card-shadow transition-shadow duration-300 hover:shadow-xl"
+              >
+                <div className="w-10 h-10 lg:w-11 lg:h-11 rounded-xl bg-[#401724] flex items-center justify-center text-[#F0C46B] mb-2.5 sm:mb-3">
+                  <HeartPulse className="w-5 h-5 lg:w-5.5 lg:h-5.5" />
                 </div>
-                <h4 className="font-serif text-base sm:text-lg text-[#401724] mb-1 font-semibold">Tailored Protocols</h4>
-                <p className="text-xs sm:text-sm text-[#211A18]/70 leading-relaxed">
+                <h4 className="font-serif text-base sm:text-lg lg:text-xl text-[#401724] mb-1 font-semibold">Tailored Protocols</h4>
+                <p className="text-xs sm:text-sm lg:text-[14px] text-[#211A18]/70 leading-relaxed">
                   Zero generic routines. Every treatment is designed after thorough skin analysis and body composition scans.
                 </p>
-              </div>
+              </motion.div>
 
               {/* Card 4 */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#401724] border border-[#D6B16A]/50 text-[#FFFAF4] shadow-md">
-                <div className="w-10 h-10 rounded-xl bg-[#211A18] border border-[#D6B16A]/40 flex items-center justify-center text-[#F0C46B] mb-2.5">
-                  <Sparkles className="w-5 h-5" />
+              <motion.div
+                variants={cardVariants}
+                whileHover={shouldReduceMotion ? {} : { y: -3, transition: { duration: 0.2 } }}
+                className="p-4 sm:p-5 lg:p-6 rounded-2xl bg-[#401724] border border-[#D6B16A]/50 text-[#FFFAF4] shadow-md transition-shadow duration-300 hover:shadow-xl"
+              >
+                <div className="w-10 h-10 lg:w-11 lg:h-11 rounded-xl bg-[#211A18] border border-[#D6B16A]/40 flex items-center justify-center text-[#F0C46B] mb-2.5 sm:mb-3">
+                  <Sparkles className="w-5 h-5 lg:w-5.5 lg:h-5.5" />
                 </div>
-                <h4 className="font-serif text-base sm:text-lg text-[#FFFAF4] mb-1 font-semibold">Calm Ambience</h4>
-                <p className="text-xs sm:text-sm text-[#E8D9C7] leading-relaxed">
+                <h4 className="font-serif text-base sm:text-lg lg:text-xl text-[#FFFAF4] mb-1 font-semibold">Calm Ambience</h4>
+                <p className="text-xs sm:text-sm lg:text-[14px] text-[#E8D9C7] leading-relaxed">
                   Fluted walls, ambient cove lighting, and warm hospitality designed to soothe anxiety the moment you enter.
                 </p>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
-            <div className="pt-2 flex flex-wrap items-center gap-4">
+            {/* 5. CTA Button */}
+            <motion.div variants={itemFadeUp} className="pt-2 flex flex-wrap items-center gap-4">
               <button
                 onClick={onBookClick}
-                className="px-6 py-3 rounded-full bg-[#401724] text-[#FFFAF4] text-xs sm:text-sm font-semibold hover:bg-[#571f31] transition-all shadow-lg bloom-shadow active:scale-95 border border-[#D6B16A] cursor-pointer"
+                className="px-6 py-3 sm:px-7 sm:py-3.5 rounded-full bg-[#401724] text-[#FFFAF4] text-xs sm:text-sm lg:text-base font-semibold hover:bg-[#571f31] transition-all shadow-lg bloom-shadow active:scale-95 border border-[#D6B16A] cursor-pointer"
               >
                 Book a Free Consultation
               </button>
               <span className="text-xs sm:text-sm text-[#401724]/85 font-medium">Personalized tour included</span>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          {/* Right Column: Horizontal Image Carousel */}
-          <div className="lg:col-span-5 relative">
+          {/* Right Column: Horizontal Image Carousel with Subtle Entrance Transition */}
+          <motion.div
+            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.96 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.75, delay: shouldReduceMotion ? 0 : 0.15, ease: luxuryEase }}
+            className="lg:col-span-5 relative"
+          >
             <div
-              className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-[#D6B16A]/40 bg-[#211A18] aspect-[4/5] max-h-[460px] lg:max-h-[500px] group warm-card-shadow"
+              className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-[#D6B16A]/40 bg-[#211A18] aspect-[4/5] max-h-[480px] lg:max-h-[520px] xl:max-h-[560px] group warm-card-shadow"
               onMouseEnter={() => setIsPaused(true)}
               onMouseLeave={() => setIsPaused(false)}
               aria-roledescription="carousel"
@@ -207,7 +294,7 @@ export const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ onBookClick }) => {
                 />
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

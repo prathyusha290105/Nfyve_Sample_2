@@ -1,5 +1,7 @@
 import React from 'react';
 import { ArrowRight, Star, Users, CheckCircle2, Sparkles, Heart } from 'lucide-react';
+import { motion, useReducedMotion } from 'motion/react';
+import { luxuryEase } from '../utils/animations';
 
 interface HeroProps {
   onBookClick: () => void;
@@ -7,10 +9,72 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onBookClick, onExploreClick }) => {
+  const shouldReduceMotion = useReducedMotion();
+
+  // Stagger sequence container
+  const containerVariants = {
+    hidden: { opacity: shouldReduceMotion ? 1 : 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: shouldReduceMotion ? 0 : 0.09,
+        delayChildren: shouldReduceMotion ? 0 : 0.05,
+      },
+    },
+  };
+
+  const itemFadeUp = {
+    hidden: { opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: shouldReduceMotion ? 0 : 0.65,
+        ease: luxuryEase,
+      },
+    },
+  };
+
+  const imageCardVariants = {
+    hidden: {
+      opacity: shouldReduceMotion ? 1 : 0,
+      scale: shouldReduceMotion ? 1 : 0.94,
+      y: shouldReduceMotion ? 0 : 18,
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: {
+        duration: shouldReduceMotion ? 0 : 0.75,
+        ease: luxuryEase,
+        delay: shouldReduceMotion ? 0 : 0.15,
+      },
+    },
+  };
+
+  const badgeVariants = (delay: number) => ({
+    hidden: {
+      opacity: shouldReduceMotion ? 1 : 0,
+      scale: shouldReduceMotion ? 1 : 0.86,
+      y: shouldReduceMotion ? 0 : 12,
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: {
+        duration: shouldReduceMotion ? 0 : 0.55,
+        ease: luxuryEase,
+        delay: shouldReduceMotion ? 0 : delay,
+      },
+    },
+  });
+
   return (
     <section
       id="hero"
-      className="relative pt-6 pb-8 md:py-10 bg-gradient-to-b from-[#211A18] via-[#401724] to-[#211A18] overflow-hidden"
+      className="relative min-h-[calc(100vh-90px)] lg:h-[calc(100vh-90px)] lg:max-h-[calc(100vh-90px)] lg:min-h-[calc(100svh-90px)] lg:h-[calc(100svh-90px)] lg:max-h-[calc(100svh-90px)] flex items-center justify-center bg-gradient-to-b from-[#211A18] via-[#401724] to-[#211A18] overflow-hidden py-6 lg:py-0"
     >
       {/* Radial ambient glow behind headline */}
       <div
@@ -22,46 +86,70 @@ export const Hero: React.FC<HeroProps> = ({ onBookClick, onExploreClick }) => {
         aria-hidden="true"
       />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
-          {/* Left Editorial Copy */}
-          <div className="lg:col-span-7 flex flex-col gap-3.5 sm:gap-4">
-            <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-[#401724]/90 border border-[#D6B16A]/40 shadow-sm w-fit">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#F0C46B] animate-ping" />
-              <span className="text-[10px] text-[#FFFAF4] font-medium tracking-wide">
-                Begumpet Luxury Flagship · Hyderabad
-              </span>
-            </div>
+          {/* Left Editorial Copy with Stagger Sequence */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="lg:col-span-7 flex flex-col gap-3.5 sm:gap-4"
+          >
+            {/* 1. Eyebrow badge */}
+            <motion.div variants={itemFadeUp}>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#401724]/90 border border-[#D6B16A]/40 shadow-sm w-fit">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#F0C46B] animate-ping" />
+                <span className="text-[11px] text-[#FFFAF4] font-medium tracking-wide">
+                  Begumpet Luxury Flagship · Hyderabad
+                </span>
+              </div>
+            </motion.div>
 
-            <h1 className="font-serif text-2xl sm:text-3xl lg:text-[40px] text-[#FFFAF4] font-medium leading-[1.18] text-balance">
+            {/* 2. Headline */}
+            <motion.h1
+              variants={itemFadeUp}
+              className="font-serif text-2xl sm:text-3xl lg:text-[38px] xl:text-[42px] text-[#FFFAF4] font-medium leading-[1.18] text-balance"
+            >
               Transform Your Body, <br />
               <span className="italic font-normal text-[#F0C46B]">Elevate Your Lifestyle.</span>
-            </h1>
+            </motion.h1>
 
-            <p className="text-xs sm:text-sm text-[#E8D9C7] max-w-lg leading-relaxed">
+            {/* 3. Description */}
+            <motion.p
+              variants={itemFadeUp}
+              className="text-xs sm:text-sm lg:text-[15px] text-[#E8D9C7] max-w-lg leading-relaxed"
+            >
               Where beauty, clinical aesthetics, fat loss, fitness, and nutrition converge under one roof in Begumpet.
               Experience effortless transformation guided by certified medical and wellness specialists.
-            </p>
+            </motion.p>
 
-            <div className="flex flex-wrap items-center gap-3 pt-0.5">
-              <button
+            {/* 4. CTA Action Buttons */}
+            <motion.div variants={itemFadeUp} className="flex flex-wrap items-center gap-3 pt-1">
+              <motion.button
+                whileHover={shouldReduceMotion ? {} : { scale: 1.02 }}
+                whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
                 onClick={onBookClick}
-                className="px-5 py-2.5 sm:px-6 sm:py-2.5 rounded-full bg-[#401724] text-[#FFFAF4] text-xs font-semibold hover:bg-[#571f31] transition-all duration-300 shadow-md hover:shadow-xl active:scale-95 flex items-center gap-2 border border-[#D6B16A] bloom-shadow cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F0C46B]"
+                className="px-5 py-2.5 sm:px-6 sm:py-2.5 rounded-full bg-[#401724] text-[#FFFAF4] text-xs sm:text-sm font-semibold hover:bg-[#571f31] transition-all duration-300 shadow-md hover:shadow-xl flex items-center gap-2 border border-[#D6B16A] bloom-shadow cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F0C46B]"
               >
                 <span>Book an Appointment</span>
                 <ArrowRight className="w-3.5 h-3.5 text-[#F0C46B]" />
-              </button>
+              </motion.button>
 
-              <button
+              <motion.button
+                whileHover={shouldReduceMotion ? {} : { scale: 1.02 }}
+                whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
                 onClick={onExploreClick}
-                className="px-5 py-2.5 sm:px-6 sm:py-2.5 rounded-full bg-[#211A18]/70 text-[#FFFAF4] border border-[#D6B16A]/70 hover:bg-[#D6B16A]/15 hover:border-[#F0C46B] transition-all duration-300 text-xs font-semibold shadow-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F0C46B]"
+                className="px-5 py-2.5 sm:px-6 sm:py-2.5 rounded-full bg-[#211A18]/70 text-[#FFFAF4] border border-[#D6B16A]/70 hover:bg-[#D6B16A]/15 hover:border-[#F0C46B] transition-all duration-300 text-xs sm:text-sm font-semibold shadow-sm cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F0C46B]"
               >
                 Explore Our Services
-              </button>
-            </div>
+              </motion.button>
+            </motion.div>
 
-            {/* Trust Badges */}
-            <div className="pt-3 border-t border-[#D6B16A]/20 flex flex-wrap items-center gap-4 text-[#E8D9C7] text-[11px] font-medium">
+            {/* 5. Feature Highlights / Trust Badges */}
+            <motion.div
+              variants={itemFadeUp}
+              className="pt-3 border-t border-[#D6B16A]/20 flex flex-wrap items-center gap-4 text-[#E8D9C7] text-xs font-medium"
+            >
               <div className="flex items-center gap-1.5">
                 <CheckCircle2 className="w-3.5 h-3.5 text-[#F0C46B]" />
                 <span>Doctor-Led Aesthetics</span>
@@ -74,32 +162,43 @@ export const Hero: React.FC<HeroProps> = ({ onBookClick, onExploreClick }) => {
                 <Sparkles className="w-3.5 h-3.5 text-[#F0C46B]" />
                 <span>Bespoke Nutri Kitchen</span>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          {/* Right Hero Visual Composition */}
-          <div className="lg:col-span-5 relative">
-            <div className="relative mx-auto max-w-sm lg:max-w-none">
-              <div className="rounded-3xl overflow-hidden shadow-2xl border-4 border-[#D6B16A]/50 bg-[#211A18] relative aspect-[4/5] max-h-[350px] lg:max-h-[370px] transform hover:scale-[1.01] transition-transform duration-500 gold-glow">
+          {/* Right Hero Visual Composition with Refined Entrance */}
+          <div className="lg:col-span-5 relative flex items-center justify-center">
+            <div className="relative mx-auto max-w-sm lg:max-w-none w-full">
+              {/* Main promotional image card with gentle scale and fade-in */}
+              <motion.div
+                variants={imageCardVariants}
+                initial="hidden"
+                animate="visible"
+                className="rounded-3xl overflow-hidden shadow-2xl border-4 border-[#D6B16A]/50 bg-[#211A18] relative aspect-[4/5] max-h-[350px] lg:max-h-[380px] xl:max-h-[420px] gold-glow group"
+              >
                 <img
                   alt="NFYVE Luxury Aesthetics - Not just nails, a reflection of you"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlnYI3dK8XbQFmrf33Dxue7TTW7Tne3dM11jZahbp2hgV2GZ7jlYtHe66fJge9P0fxPpdZ6ywXZSg_YvuTqUI8yyR5lIqJf1UKskX4LvMbVxC4ky-mbUpXwSwPzS_H_4MNk8-RFdYt2hU6didEj-l8IzTF8mYUymC5UR0FgUVOt4s__wh5rRhsNwXQX8M18_hQr2BsFWvKWykwLt8imwjr-4gcnYUUld40P1aa2NWGsPu2w6FxZ7sQdX9B6qDSqkw0LvY"
                   referrerPolicy="no-referrer"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#211A18]/95 via-[#211A18]/30 to-transparent flex flex-col justify-end p-4 text-[#FFFAF4]">
-                  <span className="font-serif text-base italic font-light text-[#F0C46B]">
+                  <span className="font-serif text-sm sm:text-base italic font-light text-[#F0C46B]">
                     "Not just nails. A reflection of you."
                   </span>
-                  <span className="text-[10px] text-[#E8D9C7] tracking-wider uppercase mt-0.5 font-semibold">
+                  <span className="text-[10px] sm:text-[11px] text-[#E8D9C7] tracking-wider uppercase mt-0.5 font-semibold">
                     NFYVE Haute Nail &amp; Aesthetic Bar
                   </span>
                 </div>
-              </div>
+              </motion.div>
 
-              {/* Floating Micro-Badge: Google Verified Rating */}
-              <div className="absolute -top-3 -left-2 sm:-left-3 bg-[#401724]/95 backdrop-blur-md p-2 sm:p-2.5 rounded-xl border border-[#D6B16A]/60 shadow-xl flex items-center gap-2">
-                <div className="w-7 h-7 rounded-full bg-[#211A18] border border-[#D6B16A]/40 flex items-center justify-center text-[#F0C46B]">
+              {/* Floating Micro-Badge 1: Google Verified Rating (appears slightly after main image) */}
+              <motion.div
+                variants={badgeVariants(0.45)}
+                initial="hidden"
+                animate="visible"
+                className="absolute -top-3 -left-2 sm:-left-3 bg-[#401724]/95 backdrop-blur-md p-2 sm:p-2.5 rounded-xl border border-[#D6B16A]/60 shadow-xl flex items-center gap-2"
+              >
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#211A18] border border-[#D6B16A]/40 flex items-center justify-center text-[#F0C46B]">
                   <Star className="w-3.5 h-3.5 fill-[#F0C46B] text-[#F0C46B]" />
                 </div>
                 <div>
@@ -109,11 +208,16 @@ export const Hero: React.FC<HeroProps> = ({ onBookClick, onExploreClick }) => {
                   </div>
                   <div className="text-[9px] text-[#F0C46B] font-semibold">Verified on Google</div>
                 </div>
-              </div>
+              </motion.div>
 
-              {/* Floating Micro-Badge: Transformed Clients */}
-              <div className="absolute -bottom-3 -right-2 sm:-right-3 bg-[#401724]/95 backdrop-blur-md px-3 py-1.5 sm:px-3 sm:py-2 rounded-xl border border-[#D6B16A]/60 shadow-xl flex items-center gap-2">
-                <div className="w-7 h-7 rounded-full bg-[#211A18] border border-[#D6B16A]/40 flex items-center justify-center text-[#F0C46B]">
+              {/* Floating Micro-Badge 2: Transformed Clients (appears slightly after badge 1) */}
+              <motion.div
+                variants={badgeVariants(0.6)}
+                initial="hidden"
+                animate="visible"
+                className="absolute -bottom-3 -right-2 sm:-right-3 bg-[#401724]/95 backdrop-blur-md px-3 py-1.5 sm:px-3 sm:py-2 rounded-xl border border-[#D6B16A]/60 shadow-xl flex items-center gap-2"
+              >
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#211A18] border border-[#D6B16A]/40 flex items-center justify-center text-[#F0C46B]">
                   <Users className="w-3.5 h-3.5" />
                 </div>
                 <div>
@@ -122,7 +226,7 @@ export const Hero: React.FC<HeroProps> = ({ onBookClick, onExploreClick }) => {
                   </div>
                   <div className="text-[9px] text-[#E8D9C7] mt-0.5">Happy Transformations</div>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>
